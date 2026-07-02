@@ -604,18 +604,23 @@ let msfFilter='all', msfOpenSet=new Set(), msfRows=[];
 // ──────────────────────────────────────────────
 //  PARSE helpers
 // ──────────────────────────────────────────────
+function camMaxBySize(row) {
+  const sz = (row['ขนาดเรือ']||getSize(row)||'');
+  return sz.includes('24') ? 13 : 14;
+}
 function msfCountCams(row) {
+  const maxCam = camMaxBySize(row);
   const o=parseInt(row['กล้องปกติ']||''), b=parseInt(row['กล้องผิดปกติ']||'');
-  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return {ok:o,bad:b,wait:0,total:o+b};
+  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return {ok:o,bad:b,wait:Math.max(0,maxCam-o-b),total:maxCam};
   let ok=0,bad=0,wait=0;
-  for(let i=1;i<=14;i++){
+  for(let i=1;i<=maxCam;i++){
     const v=(row['CAM-'+String(i).padStart(2,'0')]||'');
     const cl=statusClass(v);
     if(cl==='st-complete') ok++;
     else if(cl==='st-abnormal') bad++;
-    else if(v&&cl!=='st-none') wait++;
+    else wait++;
   }
-  return {ok,bad,wait,total:ok+bad+wait};
+  return {ok,bad,wait,total:maxCam};
 }
 
 // ──────────────────────────────────────────────
@@ -666,7 +671,7 @@ function buildMSFDash() {
 
   // CCTV totals
   let camOk=0,camBad=0,camWait=0,camTotal=0;
-  rows.forEach(r=>{ const c=msfCountCams(r); camOk+=c.ok; camBad+=c.bad; camWait+=c.wait; camTotal+=c.total||14; });
+  rows.forEach(r=>{ const c=msfCountCams(r); camOk+=c.ok; camBad+=c.bad; camWait+=c.wait; camTotal+=c.total; });
   const camPct = camTotal>0?Math.round(camOk/camTotal*100):0;
 
   // Grafana complete for hero
@@ -710,7 +715,7 @@ function buildMSFDash() {
     const dOk=pOk*circ, dBad=pBad*circ, dWait=pWait*circ, dRest=circ-dOk-dBad-dWait;
     let offset=circ*0.25; // start top
     const arc=(d,color)=>{ const s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-offset+circ}" style="transition:stroke-dasharray .8s"/>`; offset-=d; return s; };
-    const pct=tot>0?Math.round(pOk):0;
+    const pct=tot>0?Math.round(pOk*100):0;
     return `<svg width="128" height="128" viewBox="0 0 128 128">
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1e2a38" stroke-width="${stroke}"/>
       ${arc(dOk,'#28d147')}${arc(dBad,'#ff4d2e')}${arc(dWait,'#ff8c00')}
@@ -834,7 +839,7 @@ function buildMSFDash() {
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column">
       <div style="font-size:14px;font-weight:700;margin-bottom:4px">CCTV Checklist</div>
       <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:16px">
-        <span>กล้อง CCTV รวมทั้งหมด (14 ตัว × ${total} ลำ)</span>
+        <span>กล้อง CCTV รวมทั้งหมด (24ม.=13 ตัว, 19ม.=14 ตัว · รวม ${camTotal} ตัว)</span>
         <span style="cursor:pointer;color:var(--accent)" onclick="">ตรวจครบ / ยังไม่ครบ</span>
       </div>
       <div style="display:flex;justify-content:center;margin-bottom:16px">
@@ -938,12 +943,14 @@ function renderMatrix() {
   rows.forEach(r=>{
     const id=getBoatId(r), sz=getSize(r).replace(' เมตร','м');
     const mp=r['Mini PC']||'', db=r['Data Box']||'', gf=r['Grafana']||'';
+    const maxCam=camMaxBySize(r);
     html+=`<tr>
       <td style="padding:3px 10px 3px 0;font-weight:700;font-family:IBM Plex Mono,monospace">
         ${esc(id)} <span style="font-size:9px;color:var(--text-muted);font-weight:400">${sz}</span>
       </td>
       <td style="padding:3px 8px;text-align:center">${mmrDot(mp)}${mmrDot(db)}${mmrDot(gf)}</td>
-      ${Array.from({length:14},(_,i)=>dotCell(r['CAM-'+String(i+1).padStart(2,'0')]||'')).join('')}
+      ${Array.from({length:maxCam},(_,i)=>dotCell(r['CAM-'+String(i+1).padStart(2,'0')]||'')).join('')}
+      ${maxCam<14?Array.from({length:14-maxCam},()=>`<td style="padding:2px"><div style="width:${camSize}px;height:${camSize}px;border-radius:5px;background:transparent"></div></td>`).join(''):''}
     </tr>`;
   });
   html+=`</tbody></table>`;
