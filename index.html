@@ -112,22 +112,102 @@
   .msf-fbtn { padding: 5px 13px; border-radius: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text-muted); font-size: 12px; font-family: 'Sarabun', sans-serif; cursor: pointer; transition: all .15s; white-space: nowrap; }
   .msf-fbtn.active { background: rgba(88,166,255,.15); color: var(--accent); border-color: rgba(88,166,255,.4); }
 
+  /* ── Size filter button with popup ── */
   .msf-size-btn-wrap { position: relative; display: inline-block; }
+
   .msf-size-popup {
-    display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-    z-index: 200; background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 10px 12px; min-width: 180px; max-width: 260px;
-    box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(88,166,255,.08); pointer-events: none;
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    min-width: 180px;
+    max-width: 260px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.55), 0 0 0 1px rgba(88,166,255,.08);
+    pointer-events: none;
   }
-  .msf-size-popup::before { content:''; position:absolute; top:-6px; left:50%; transform:translateX(-50%); border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--border); }
-  .msf-size-popup::after  { content:''; position:absolute; top:-5px; left:50%; transform:translateX(-50%); border-left:6px solid transparent; border-right:6px solid transparent; border-bottom:6px solid var(--surface); }
-  .msf-size-btn-wrap:hover .msf-size-popup, .msf-size-btn-wrap.popup-open .msf-size-popup { display:block; pointer-events:auto; }
-  .popup-header { font-size:10px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-  .popup-header .popup-count { background:rgba(88,166,255,.15); color:var(--accent); border-radius:10px; padding:1px 6px; font-size:10px; font-family:'IBM Plex Mono',monospace; }
-  .popup-ship-grid { display:flex; flex-wrap:wrap; gap:5px; }
-  .popup-ship-chip { display:inline-flex; align-items:center; gap:4px; background:var(--card); border:1px solid var(--border); border-radius:5px; padding:3px 8px; font-size:11px; font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--text); cursor:pointer; transition:all .12s; white-space:nowrap; }
-  .popup-ship-chip:hover { background:var(--surface2); border-color:var(--accent); color:var(--accent); }
-  .popup-ship-chip .chip-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .msf-size-popup::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--border);
+  }
+  .msf-size-popup::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--surface);
+  }
+  .msf-size-btn-wrap:hover .msf-size-popup,
+  .msf-size-btn-wrap.popup-open .msf-size-popup {
+    display: block;
+    pointer-events: auto;
+  }
+
+  .popup-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .popup-header .popup-count {
+    background: rgba(88,166,255,.15);
+    color: var(--accent);
+    border-radius: 10px;
+    padding: 1px 6px;
+    font-size: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .popup-ship-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .popup-ship-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    transition: all .12s;
+    white-space: nowrap;
+  }
+  .popup-ship-chip:hover {
+    background: var(--surface2);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .popup-ship-chip .chip-dot {
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
 
   .ship-list { display: flex; flex-direction: column; gap: 10px; }
   .ship-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -139,11 +219,39 @@
   .chevron.open { transform: rotate(180deg); }
 
   .ship-body { padding: 14px 16px; border-top: 1px solid var(--border); background: var(--surface2); }
+  .sec-head { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; margin: 0 0 8px; }
+
+  .equip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; margin-bottom: 14px; }
+  .equip-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .equip-cell.eq-ok   { border-left: 3px solid var(--accent2); }
+  .equip-cell.eq-err  { border-left: 3px solid var(--accent3); }
+  .equip-cell.eq-wait { border-left: 3px solid var(--text-muted); }
+  .equip-cell.eq-none { border-left: 3px solid #444; }
+  .equip-name { font-size: 12px; font-weight: 600; color: var(--text); }
+
+  .nvr-row { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 13px; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+  .nvr-left { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; }
+  .nvr-sn { font-size: 11px; color: var(--text-muted); font-family: 'IBM Plex Mono', monospace; }
+
+  .online-row { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 9px 13px; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .online-left { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; }
+
+  .cam-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 12px; }
+  @media (max-width: 640px) { .cam-grid { grid-template-columns: repeat(4, 1fr); } }
+  .cam-cell { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 7px 9px; display: flex; align-items: center; justify-content: space-between; gap: 5px; }
+  .cam-cell.cam-ok   { border-left: 3px solid var(--accent2); }
+  .cam-cell.cam-err  { border-left: 3px solid var(--accent3); }
+  .cam-cell.cam-wait { border-left: 3px solid var(--text-muted); }
+  .cam-name { font-size: 11px; font-weight: 600; color: var(--text); font-family: 'IBM Plex Mono', monospace; }
+
   .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .dot-ok   { background: var(--accent2); box-shadow: 0 0 4px rgba(63,185,80,.4); }
   .dot-err  { background: var(--accent3); box-shadow: 0 0 4px rgba(247,129,102,.4); }
   .dot-wait { background: var(--text-muted); }
   .dot-none { background: #444; }
+
+  .ship-footer-row { display: flex; gap: 16px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; padding-top: 8px; border-top: 1px solid var(--border); margin-top: 4px; }
+  .ship-footer-row strong { color: var(--text); font-weight: 600; }
 
   .legend-row { display: flex; gap: 14px; margin-bottom: 10px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap; }
   .legend-item { display: flex; align-items: center; gap: 5px; }
@@ -154,10 +262,7 @@
   .prog-bar-wrap { height: 18px; background: var(--card); border-radius: 9px; overflow: hidden; margin-bottom: 8px; }
   .prog-bar-fill { height: 100%; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #0d1117; transition: width .8s cubic-bezier(.22,1,.36,1); }
   .prog-nums { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
-
-  @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
-  .timeline-bar-track { height:6px; background:var(--card); border-radius:3px; overflow:hidden; margin-top:6px; }
-  .timeline-bar-fill  { height:100%; border-radius:3px; transition:width .8s cubic-bezier(.22,1,.36,1); }
+  .prog-detail { display: flex; gap: 16px; font-size: 12px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
@@ -178,11 +283,13 @@
       <div class="upload-card" id="card-msf" ondragover="handleDragOver(event,'msf')" ondragleave="handleDragLeave('msf')" ondrop="handleDrop(event,'msf')">
         <div class="card-icon">🚢</div>
         <div class="card-title">เรือ MSF</div>
-        <div class="card-desc">ข้อมูลอุปกรณ์, Grafana, CCTV/NVR บนเรือแต่ละลำ</div>
+        <div class="card-desc">ข้อมูลอุปกรณ์, CCTV/NVR และการตั้งค่าออนไลน์บนเรือแต่ละลำ</div>
         <div class="card-headers">
-          <span>เบอร์เรือ</span><span>ขนาดเรือ</span><span>สถานที่จอด</span>
-          <span>Grafana</span><span>NVR S/N</span><span>CCTV</span>
+          <span>Boat ID</span><span>ขนาดเรือ</span><span>ท่าจอด</span>
+          <span>Mini PC</span><span>Data Box</span><span>Grafana</span>
+          <span>หมายเหตุ MMR</span><span>NVR Serial No.</span><span>NVR Config</span>
           <span>CAM-01…14</span><span>กล้องปกติ</span><span>กล้องผิดปกติ</span>
+          <span>หมายเหตุ CCTV</span><span>ตรวจสอบแล้ว</span>
         </div>
         <button class="card-btn" onclick="document.getElementById('file-msf').click()">📁 เลือกไฟล์ CSV</button>
         <input class="file-input" type="file" id="file-msf" accept=".csv,.tsv,.txt" onchange="handleFile(event,'msf')">
@@ -244,6 +351,7 @@
 </div>
 
 <script>
+const EXTRA_EQUIP = ['Mini PC','Data Box','E60','AVM','MDVR','P70','Gps Repeater','Power amp'];
 const store = { msf: null, cctv: null, issue: null, its: null, purchase: null };
 
 function parseCSV(text) {
@@ -253,6 +361,8 @@ function parseCSV(text) {
   const splitLine = sep === '\t'
     ? l => l.split('\t')
     : l => { const r=[]; let c='',q=false; for(const ch of l){if(ch==='"'){q=!q;}else if(ch===','&&!q){r.push(c);c='';}else{c+=ch;}} r.push(c); return r; };
+
+  // Detect meta rows (Start date / End date) before real header row
   const meta = {};
   let headerLineIdx = 0;
   for (let i = 0; i < Math.min(6, lines.length); i++) {
@@ -262,6 +372,7 @@ function parseCSV(text) {
     else if (k0.includes('end') && k0.includes('date')) { meta.endDate = cells[1]||cells[2]||''; headerLineIdx = i+1; }
     else if (cells.some(c=>c==='เบอร์เรือ'||c==='ทะเบียน'||c==='อู่'||c==='Tickets No.')) { headerLineIdx = i; break; }
   }
+
   const headers = splitLine(lines[headerLineIdx]).map(h => h.trim().replace(/^"|"$/g,''));
   const rows = [];
   for (let i = headerLineIdx + 1; i < lines.length; i++) {
@@ -291,23 +402,52 @@ function readFile(file, key) {
 function checkEnableBtn() { document.getElementById('btnView').disabled = !Object.values(store).some(v=>v); }
 
 function loadDemo() {
-  store.msf = { headers:['เบอร์เรือ','ขนาดเรือ','สถานที่จอด','Grafana','Remark (Grafana)',' NVR S/N ','CCTV','CAM-01','CAM-02','CAM-03','CAM-04','CAM-05','CAM-06','CAM-07','CAM-08','CAM-09','CAM-10','CAM-11','CAM-12','CAM-13','CAM-14','กล้องปกติ','กล้องผิดปกติ','Remark (CCTV)'],
-    meta: { startDate:'29/6/69', endDate:'10/7/69' },
-    rows:[
-    {'เบอร์เรือ':'MSF5','ขนาดเรือ':'24 เมตร','สถานที่จอด':'ศาลาลี','Grafana':'in progress','Remark (Grafana)':'',' NVR S/N ':'','CCTV':'in progress','CAM-01':'in progress','CAM-02':'in progress','CAM-03':'in progress','CAM-04':'in progress','CAM-05':'in progress','CAM-06':'in progress','CAM-07':'in progress','CAM-08':'in progress','CAM-09':'in progress','CAM-10':'in progress','CAM-11':'in progress','CAM-12':'in progress','CAM-13':'in progress','CAM-14':'in progress','กล้องปกติ':'0','กล้องผิดปกติ':'0','Remark (CCTV)':''},
-    {'เบอร์เรือ':'MSF9','ขนาดเรือ':'24 เมตร','สถานที่จอด':'ไทรม้า','Grafana':'Abnormal','Remark (Grafana)':'Grafana DM PC ไฟ Status CAN 1,CAN2 ไม่ติด',' NVR S/N ':'DS-7716NI-K4/16P(E53025965)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Abnormal','CAM-08':'Abnormal','CAM-09':'Abnormal','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Complete','CAM-13':'Complete','CAM-14':'Complete','กล้องปกติ':'11','กล้องผิดปกติ':'3','Remark (CCTV)':'CAN2 ไม่ติด'},
-    {'เบอร์เรือ':'MSF17','ขนาดเรือ':'24 เมตร','สถานที่จอด':'ไทรม้า','Grafana':'Abnormal','Remark (Grafana)':'Grafana ไม่ส่งข้อมูล',' NVR S/N ':'DS-7716NI-K416P(E53025907)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Complete','CAM-09':'Complete','CAM-10':'Abnormal','CAM-11':'Abnormal','CAM-12':'Abnormal','CAM-13':'Abnormal','CAM-14':'Abnormal','กล้องปกติ':'9','กล้องผิดปกติ':'5','Remark (CCTV)':''},
-    {'เบอร์เรือ':'VIPMSF25','ขนาดเรือ':'24 เมตร','สถานที่จอด':'บุคคโล','Grafana':'Complete','Remark (Grafana)':'',' NVR S/N ':'DS-7616NI-K2-16P(G11019186)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Complete','CAM-09':'Complete','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Abnormal','CAM-13':'Abnormal','CAM-14':'Complete','กล้องปกติ':'12','กล้องผิดปกติ':'2','Remark (CCTV)':''},
-    {'เบอร์เรือ':'MSF31','ขนาดเรือ':'19 เมตร','สถานที่จอด':'บุคคโล','Grafana':'Complete','Remark (Grafana)':'',' NVR S/N ':'DS-7716NI-I4-16P(B)(J86087381)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Complete','CAM-09':'Complete','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Complete','CAM-13':'Complete','CAM-14':'Complete','กล้องปกติ':'14','กล้องผิดปกติ':'0','Remark (CCTV)':''},
-    {'เบอร์เรือ':'MSF33','ขนาดเรือ':'19 เมตร','สถานที่จอด':'บุคคโล','Grafana':'Complete','Remark (Grafana)':'',' NVR S/N ':'DS-7716NI-I4-16P(B)(J86087393)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Abnormal','CAM-09':'Complete','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Complete','CAM-13':'Abnormal','CAM-14':'Abnormal','กล้องปกติ':'11','กล้องผิดปกติ':'3','Remark (CCTV)':''},
-    {'เบอร์เรือ':'MSF34','ขนาดเรือ':'19 เมตร','สถานที่จอด':'บุคคโล','Grafana':'Abnormal','Remark (Grafana)':'',' NVR S/N ':'DS-7716NI-I4-16P(B)(F96522068)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Abnormal','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Complete','CAM-09':'Complete','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Complete','CAM-13':'Complete','CAM-14':'Abnormal','กล้องปกติ':'12','กล้องผิดปกติ':'2','Remark (CCTV)':''},
-    {'เบอร์เรือ':'MSF35','ขนาดเรือ':'19 เมตร','สถานที่จอด':'ศาลาลี','Grafana':'in progress','Remark (Grafana)':'',' NVR S/N ':'','CCTV':'in progress','CAM-01':'in progress','CAM-02':'in progress','CAM-03':'in progress','CAM-04':'in progress','CAM-05':'in progress','CAM-06':'in progress','CAM-07':'in progress','CAM-08':'in progress','CAM-09':'in progress','CAM-10':'in progress','CAM-11':'in progress','CAM-12':'in progress','CAM-13':'in progress','CAM-14':'in progress','กล้องปกติ':'0','กล้องผิดปกติ':'0','Remark (CCTV)':''},
-    {'เบอร์เรือ':'VIPMSF42','ขนาดเรือ':'19 เมตร','สถานที่จอด':'บุคคโล','Grafana':'Complete','Remark (Grafana)':'',' NVR S/N ':'DS-7716NI-I4-16P(B)(J86087397)','CCTV':'Complete','CAM-01':'Complete','CAM-02':'Complete','CAM-03':'Complete','CAM-04':'Complete','CAM-05':'Complete','CAM-06':'Complete','CAM-07':'Complete','CAM-08':'Complete','CAM-09':'Complete','CAM-10':'Complete','CAM-11':'Complete','CAM-12':'Complete','CAM-13':'Complete','CAM-14':'Complete','กล้องปกติ':'14','กล้องผิดปกติ':'0','Remark (CCTV)':''},
+  const h = ['เบอร์เรือ','ขนาดเรือ','สถานะเรือ','Grafana','Mini PC','Data Box','E60','AVM','MDVR','P70','Gps Repeater','Power amp',
+              'NVR S/N','สถานะ NVR','ตั้งค่าออนไลน์',
+              'CAM-01','CAM-02','CAM-03','CAM-04','CAM-05','CAM-06','CAM-07',
+              'CAM-08','CAM-09','CAM-10','CAM-11','CAM-12','CAM-13','CAM-14','กล้องปกติ','กล้องผิดปกติ'];
+  const mk = (id,sz,st,gr,mp,db,e6,av,md,p7,gp,pa,nvr,nst,ol,cams,ok,bad) => {
+    const r={'เบอร์เรือ':id,'ขนาดเรือ':sz,'สถานะเรือ':st,'Grafana':gr||'','Mini PC':mp||'','Data Box':db||'',
+      'E60':e6||'','AVM':av||'','MDVR':md||'','P70':p7||'','Gps Repeater':gp||'','Power amp':pa||'',
+      'NVR S/N':nvr||'','สถานะ NVR':nst||'','ตั้งค่าออนไลน์':ol||''};
+    const cs=cams||'รอตรวจสอบ';
+    for(let i=1;i<=14;i++) r['CAM-'+String(i).padStart(2,'0')]=cs;
+    r['กล้องปกติ']=String(ok||0); r['กล้องผิดปกติ']=String(bad||0);
+    return r;
+  };
+  const pw='รอตรวจสอบ';
+  store.msf = { headers: h, rows: [
+    mk('MSF1','24 เมตร','เสีย','รอตรวจสอบ','รอตรวจสอบ','ปกติ','ปกติ','ปกติ','ปกติ','ปกติ','ปกติ','ปกติ','','รอตรวจสอบ','ยังไม่ได้ตั้งค่า',pw,0,0),
+    mk('MSF2','24 เมตร','เสีย','','','','ผิดปกติ','ผิดปกติ','ผิดปกติ','รอตรวจสอบ','ผิดปกติ','ผิดปกติ','','รอตรวจสอบ','ยังไม่ได้ตั้งค่า',pw,0,0),
+    mk('MSF5','24 เมตร','ใช้งาน','','ผิดปกติ','ผิดปกติ','','','','','','','','รอตรวจสอบ','ยังไม่ได้ตั้งค่า',pw,0,0),
+    mk('MSF30','19 เมตร','ใช้งาน','','','','','','','','','','','รอตรวจสอบ','ยังไม่ได้ตั้งค่า',pw,0,0),
+    {'เบอร์เรือ':'MSF31','ขนาดเรือ':'19 เมตร','สถานะเรือ':'ใช้งาน','Grafana':'ปกติ','Mini PC':'ไม่มี','Data Box':'','E60':'','AVM':'','MDVR':'','P70':'','Gps Repeater':'','Power amp':'',
+      'NVR S/N':'DS-7716NI-I4-16P(B)(J86087381)','สถานะ NVR':'ใช้งานได้','ตั้งค่าออนไลน์':'ตั้งค่าแล้ว',
+      'CAM-01':'ปกติ','CAM-02':'ปกติ','CAM-03':'ปกติ','CAM-04':'ปกติ','CAM-05':'ปกติ','CAM-06':'ปกติ','CAM-07':'ปกติ',
+      'CAM-08':'ปกติ','CAM-09':'ปกติ','CAM-10':'ปกติ','CAM-11':'ปกติ','CAM-12':'ปกติ','CAM-13':'ปกติ','CAM-14':'ปกติ','กล้องปกติ':'14','กล้องผิดปกติ':'0'},
+    {'เบอร์เรือ':'MSF33','ขนาดเรือ':'19 เมตร','สถานะเรือ':'ใช้งาน','Grafana':'','Mini PC':'','Data Box':'','E60':'','AVM':'','MDVR':'','P70':'','Gps Repeater':'','Power amp':'',
+      'NVR S/N':'DS-7716NI-I4-16P(B)(J86087379)','สถานะ NVR':'ใช้งานได้','ตั้งค่าออนไลน์':'ตั้งค่าแล้ว',
+      'CAM-01':'ปกติ','CAM-02':'ปกติ','CAM-03':'ปกติ','CAM-04':'ปกติ','CAM-05':'ปกติ','CAM-06':'ปกติ','CAM-07':'ปกติ',
+      'CAM-08':'ผิดปกติ','CAM-09':'ปกติ','CAM-10':'ปกติ','CAM-11':'ปกติ','CAM-12':'ปกติ','CAM-13':'ปกติ','CAM-14':'ปกติ','กล้องปกติ':'13','กล้องผิดปกติ':'1'},
+    {'เบอร์เรือ':'MSF38','ขนาดเรือ':'19 เมตร','สถานะเรือ':'ใช้งาน','Grafana':'ผิดปกติ','Mini PC':'รอตรวจสอบ','Data Box':'','E60':'','AVM':'','MDVR':'','P70':'','Gps Repeater':'','Power amp':'',
+      'NVR S/N':'DS-7716NI-I4-16P(B)(J86087411)','สถานะ NVR':'ใช้งานได้','ตั้งค่าออนไลน์':'ตั้งค่าแล้ว',
+      'CAM-01':'ปกติ','CAM-02':'ปกติ','CAM-03':'ปกติ','CAM-04':'ปกติ','CAM-05':'ปกติ','CAM-06':'ปกติ','CAM-07':'ปกติ',
+      'CAM-08':'ปกติ','CAM-09':'ปกติ','CAM-10':'ปกติ','CAM-11':'ผิดปกติ','CAM-12':'ปกติ','CAM-13':'ปกติ','CAM-14':'ปกติ','กล้องปกติ':'13','กล้องผิดปกติ':'1'},
+    {'เบอร์เรือ':'MSF40','ขนาดเรือ':'19 เมตร','สถานะเรือ':'ใช้งาน','Grafana':'','Mini PC':'','Data Box':'','E60':'','AVM':'','MDVR':'','P70':'','Gps Repeater':'','Power amp':'',
+      'NVR S/N':'DS-7716NI-I4-16P(B)(G39751736)','สถานะ NVR':'ใช้งานได้','ตั้งค่าออนไลน์':'ตั้งค่าแล้ว',
+      'CAM-01':'ปกติ','CAM-02':'ปกติ','CAM-03':'ปกติ','CAM-04':'ปกติ','CAM-05':'ปกติ','CAM-06':'ปกติ','CAM-07':'ปกติ',
+      'CAM-08':'ปกติ','CAM-09':'ปกติ','CAM-10':'ปกติ','CAM-11':'ปกติ','CAM-12':'ปกติ','CAM-13':'ปกติ','CAM-14':'ปกติ','กล้องปกติ':'14','กล้องผิดปกติ':'0'},
+    {'เบอร์เรือ':'VIPMSF42','ขนาดเรือ':'19 เมตร','สถานะเรือ':'ใช้งาน','Grafana':'','Mini PC':'','Data Box':'','E60':'','AVM':'','MDVR':'','P70':'','Gps Repeater':'','Power amp':'',
+      'NVR S/N':'DS-7716NI-I4-16P(B)(J86087397)','สถานะ NVR':'ใช้งานได้','ตั้งค่าออนไลน์':'ตั้งค่าแล้ว',
+      'CAM-01':'ปกติ','CAM-02':'ปกติ','CAM-03':'ปกติ','CAM-04':'ปกติ','CAM-05':'ปกติ','CAM-06':'ปกติ','CAM-07':'ปกติ',
+      'CAM-08':'ปกติ','CAM-09':'ปกติ','CAM-10':'ปกติ','CAM-11':'ปกติ','CAM-12':'ปกติ','CAM-13':'ปกติ','CAM-14':'ปกติ','กล้องปกติ':'14','กล้องผิดปกติ':'0'},
+    mk('Mine Beyond','24 เมตร','เสีย','','','','','','','','','','','รอตรวจสอบ','ยังไม่ได้ตั้งค่า',pw,0,0),
   ]};
   store.cctv = { headers:['อู่','CCTV ชำรุด','HDD ชำรุด','ตรวจสอบ','พบปัญหาซ้ำ','% เข้ามา','วันเริ่มงาน','วันสิ้นสุด'], rows:[
     {อู่:'แสมดำ','CCTV ชำรุด':'7','HDD ชำรุด':'0','ตรวจสอบ':'แล้ว','พบปัญหาซ้ำ':'','% เข้ามา':'100','วันเริ่มงาน':'06/04/2568','วันสิ้นสุด':'25/04/2568'},
     {อู่:'บึงกุ่ม','CCTV ชำรุด':'1','HDD ชำรุด':'1','ตรวจสอบ':'แล้ว','พบปัญหาซ้ำ':'16-7698:CCTV CH4 ไม่ติด','% เข้ามา':'100','วันเริ่มงาน':'06/04/2568','วันสิ้นสุด':'25/04/2568'},
     {อู่:'ราษฎร์บูรณะ','CCTV ชำรุด':'7','HDD ชำรุด':'1','ตรวจสอบ':'แล้ว','พบปัญหาซ้ำ':'','% เข้ามา':'100','วันเริ่มงาน':'06/04/2568','วันสิ้นสุด':'25/04/2568'},
+    {อู่:'มีนบุรี','CCTV ชำรุด':'3','HDD ชำรุด':'2','ตรวจสอบ':'แล้ว','พบปัญหาซ้ำ':'16-8427:HDD ผิดปกติ','% เข้ามา':'100','วันเริ่มงาน':'06/04/2568','วันสิ้นสุด':'25/04/2568'},
   ]};
   store.issue = { headers:['ทะเบียน','ประเภท','อู่','ปัญหา','วิธีการแก้ไข','สถานะ','ผู้แก้ไข','วันที่แก้ไข','หมายเหตุ'], rows:[
     {ทะเบียน:'บก-1234',ประเภท:'กล้อง',อู่:'สุขุมวิท',ปัญหา:'กล้องไม่บันทึก',วิธีการแก้ไข:'เปลี่ยน HDD',สถานะ:'เสร็จแล้ว',ผู้แก้ไข:'สมชาย',วันที่แก้ไข:'01/05/2568',หมายเหตุ:'-'},
@@ -316,10 +456,12 @@ function loadDemo() {
   store.its = { headers:['Tickets No.','ปัญหา','ทะเบียน','อู่','ประเภท','สถานะ','หมายเหตุ'], rows:[
     {'Tickets No.':'TK-001',ปัญหา:'กล้องดับ',ทะเบียน:'บก-1234',อู่:'สุขุมวิท',ประเภท:'Hardware',สถานะ:'Solved',หมายเหตุ:'-'},
     {'Tickets No.':'TK-002',ปัญหา:'Net ขัดข้อง',ทะเบียน:'กก-5678',อู่:'รังสิต',ประเภท:'Network',สถานะ:'Processing (assigned)',หมายเหตุ:'เร่งด่วน'},
+    {'Tickets No.':'TK-003',ปัญหา:'กล้องภาพมืด',ทะเบียน:'งง-3456',อู่:'ลาดพร้าว',ประเภท:'Hardware',สถานะ:'Pending',หมายเหตุ:'-'},
   ]};
   store.purchase = { headers:['รายการอุปกรณ์','รายละเอียด','จำนวน','หน่วย','สถานะ','หมายเหตุ'], rows:[
     {'รายการอุปกรณ์':'กล้อง IP','รายละเอียด':'2MP Dome Camera','จำนวน':'10','หน่วย':'ตัว','สถานะ':'รับสินค้า','หมายเหตุ':'-'},
     {'รายการอุปกรณ์':'HDD 4TB','รายละเอียด':'WD Purple','จำนวน':'5','หน่วย':'ลูก','สถานะ':'รออนุมัติ PR','หมายเหตุ':'ส่งใบเสนอราคาแล้ว'},
+    {'รายการอุปกรณ์':'Switch PoE','รายละเอียด':'8-Port PoE+','จำนวน':'3','หน่วย':'ชุด','สถานะ':'ออก PO','หมายเหตุ':'-'},
   ]};
   ['msf','cctv','issue','its','purchase'].forEach(k => {
     document.getElementById('card-'+k).classList.add('loaded');
@@ -330,8 +472,10 @@ function loadDemo() {
 
 function showDashboard() {
   document.getElementById('uploadScreen').style.display = 'none';
-  const ds = document.getElementById('dashScreen'); ds.style.display = 'flex';
-  const tabBar = document.getElementById('tabBar'), panelContainer = document.getElementById('panelContainer');
+  const ds = document.getElementById('dashScreen');
+  ds.style.display = 'flex';
+  const tabBar = document.getElementById('tabBar');
+  const panelContainer = document.getElementById('panelContainer');
   tabBar.innerHTML = ''; panelContainer.innerHTML = '';
   const tabs = [
     { key:'msf',      label:'🚢 เรือ MSF',     render: renderMSF },
@@ -346,10 +490,13 @@ function showDashboard() {
     const btn = document.createElement('button');
     btn.className = 'tab-btn';
     btn.innerHTML = t.label+' <span class="tab-badge">'+store[t.key].rows.length+'</span>';
-    btn.onclick = () => activateTab(t.key); btn.id = 'tab-'+t.key; tabBar.appendChild(btn);
+    btn.onclick = () => activateTab(t.key);
+    btn.id = 'tab-'+t.key;
+    tabBar.appendChild(btn);
     const panel = document.createElement('div');
     panel.className = 'tab-panel'; panel.id = 'panel-'+t.key;
-    panel.innerHTML = t.render(store[t.key]); panelContainer.appendChild(panel);
+    panel.innerHTML = t.render(store[t.key]);
+    panelContainer.appendChild(panel);
     if (!first) first = t.key;
   });
   if (first) activateTab(first);
@@ -358,401 +505,521 @@ function showDashboard() {
 }
 
 function activateTab(key) {
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  const b=document.getElementById('tab-'+key); if(b) b.classList.add('active');
-  const p=document.getElementById('panel-'+key); if(p) p.classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const b = document.getElementById('tab-'+key); if(b) b.classList.add('active');
+  const p = document.getElementById('panel-'+key); if(p) p.classList.add('active');
 }
 function backToUpload() { document.getElementById('dashScreen').style.display='none'; document.getElementById('uploadScreen').style.display='flex'; }
 function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function statusBadge(s) {
-  if (!s) return ''; const sl=s.toLowerCase();
-  if(sl.includes('solved'))      return '<span class="badge badge-green">'+s+'</span>';
-  if(sl.includes('processing')||sl.includes('assigned')) return '<span class="badge badge-blue">'+s+'</span>';
-  if(sl.includes('pending'))     return '<span class="badge badge-yellow">'+s+'</span>';
-  if(sl.includes('รับสินค้า'))   return '<span class="badge badge-green">'+s+'</span>';
-  if(sl.includes('ออก po'))      return '<span class="badge badge-blue">'+s+'</span>';
-  if(sl.includes('รออนุมัติ pr'))return '<span class="badge badge-yellow">'+s+'</span>';
-  if(sl.includes('จัดทำ pr'))    return '<span class="badge badge-purple">'+s+'</span>';
-  if(sl.includes('เสร็จ'))       return '<span class="badge badge-green">'+s+'</span>';
-  if(sl.includes('รอดำเนินการ')||sl.includes('รออนุมัติ')) return '<span class="badge badge-red">'+s+'</span>';
-  if(sl.includes('กำลังดำเนินการ')) return '<span class="badge badge-yellow">'+s+'</span>';
+  if (!s) return '';
+  const sl = s.toLowerCase();
+  if (sl.includes('solved'))      return '<span class="badge badge-green">'+s+'</span>';
+  if (sl.includes('processing')||sl.includes('assigned')) return '<span class="badge badge-blue">'+s+'</span>';
+  if (sl.includes('pending'))     return '<span class="badge badge-yellow">'+s+'</span>';
+  if (sl.includes('รับสินค้า'))   return '<span class="badge badge-green">'+s+'</span>';
+  if (sl.includes('ออก po'))      return '<span class="badge badge-blue">'+s+'</span>';
+  if (sl.includes('รออนุมัติ pr'))return '<span class="badge badge-yellow">'+s+'</span>';
+  if (sl.includes('จัดทำ pr'))    return '<span class="badge badge-purple">'+s+'</span>';
+  if (sl.includes('เสร็จ'))       return '<span class="badge badge-green">'+s+'</span>';
+  if (sl.includes('รอดำเนินการ')||sl.includes('รออนุมัติ')) return '<span class="badge badge-red">'+s+'</span>';
+  if (sl.includes('กำลังดำเนินการ')) return '<span class="badge badge-yellow">'+s+'</span>';
   return '<span class="badge badge-blue">'+s+'</span>';
 }
 function bar(data, colors) {
-  const max=Math.max(...data.map(d=>d.val),1);
+  const max = Math.max(...data.map(d=>d.val),1);
   return data.map((d,i)=>'<div class="bar-item"><div class="bar-label" title="'+esc(d.label)+'">'+esc(d.label)+'</div><div class="bar-track"><div class="bar-fill" style="width:'+(d.val/max*100).toFixed(1)+'%;background:'+colors[i%colors.length]+'"></div></div><div class="bar-count">'+d.val+'</div></div>').join('');
 }
 function buildTable(id, headers, rows, statusCol) {
-  const ths=headers.map(h=>'<th>'+esc(h)+'</th>').join('');
-  const trs=rows.map(r=>'<tr>'+headers.map(h=>'<td title="'+esc(r[h]||'')+'">'+( h===statusCol ? statusBadge(r[h]||'') : esc(r[h]||'') )+'</td>').join('')+'</tr>').join('');
+  const ths = headers.map(h=>'<th>'+esc(h)+'</th>').join('');
+  const trs = rows.map(r=>'<tr>'+headers.map(h=>'<td title="'+esc(r[h]||'')+'">'+( h===statusCol ? statusBadge(r[h]||'') : esc(r[h]||'') )+'</td>').join('')+'</tr>').join('');
   return '<table class="data-table" id="'+id+'"><thead><tr>'+ths+'</tr></thead><tbody>'+trs+'</tbody></table>';
 }
 
-const pagerState={};
+const pagerState = {};
 function initPagers() {
-  document.querySelectorAll('[data-table]').forEach(wrapper=>{
-    const tid=wrapper.dataset.table, tbl=document.getElementById(tid); if(!tbl) return;
-    const rows=Array.from(tbl.querySelectorAll('tbody tr')), pp=parseInt(wrapper.dataset.perpage||15);
-    pagerState[tid]={rows,page:1,perPage:pp,filtered:rows}; renderPage(tid);
+  document.querySelectorAll('[data-table]').forEach(wrapper => {
+    const tid = wrapper.dataset.table;
+    const tbl = document.getElementById(tid); if (!tbl) return;
+    const rows = Array.from(tbl.querySelectorAll('tbody tr'));
+    const pp = parseInt(wrapper.dataset.perpage||15);
+    pagerState[tid] = { rows, page:1, perPage:pp, filtered:rows };
+    renderPage(tid);
   });
 }
 function renderPage(tid) {
-  const s=pagerState[tid]; if(!s) return;
-  const{filtered,page,perPage}=s, start=(page-1)*perPage, end=start+perPage;
+  const s = pagerState[tid]; if(!s) return;
+  const {filtered,page,perPage} = s;
+  const start=(page-1)*perPage, end=start+perPage;
   s.rows.forEach(r=>r.style.display='none');
   filtered.forEach((r,i)=>r.style.display=(i>=start&&i<end)?'':'none');
-  const ie=document.getElementById('info-'+tid),pe=document.getElementById('prev-'+tid),ne=document.getElementById('next-'+tid);
+  const ie=document.getElementById('info-'+tid), pe=document.getElementById('prev-'+tid), ne=document.getElementById('next-'+tid);
   if(ie) ie.textContent='แสดง '+Math.min(start+1,filtered.length)+'–'+Math.min(end,filtered.length)+' จาก '+filtered.length+' แถว';
-  if(pe) pe.disabled=page<=1; if(ne) ne.disabled=end>=filtered.length;
+  if(pe) pe.disabled=page<=1;
+  if(ne) ne.disabled=end>=filtered.length;
 }
-function changePage(tid,dir){const s=pagerState[tid];if(!s)return;s.page=Math.max(1,Math.min(s.page+dir,Math.ceil(s.filtered.length/s.perPage)));renderPage(tid);}
-function searchTable(tid,q){const s=pagerState[tid];if(!s)return;const ql=q.toLowerCase();s.filtered=ql?s.rows.filter(r=>r.textContent.toLowerCase().includes(ql)):s.rows;s.page=1;renderPage(tid);}
+function changePage(tid,dir) { const s=pagerState[tid]; if(!s)return; s.page=Math.max(1,Math.min(s.page+dir,Math.ceil(s.filtered.length/s.perPage))); renderPage(tid); }
+function searchTable(tid,q) { const s=pagerState[tid]; if(!s)return; const ql=q.toLowerCase(); s.filtered=ql?s.rows.filter(r=>r.textContent.toLowerCase().includes(ql)):s.rows; s.page=1; renderPage(tid); }
 
-// ── MSF state ──
+function onlineStatus(v) {
+  if (!v||!v.trim()) return 'none';
+  if (v==='ตั้งค่าแล้ว') return 'done';
+  if (v==='ยังไม่ได้ตั้งค่า') return 'pending';
+  return 'other';
+}
+function onlineBadge(v) {
+  const s=onlineStatus(v);
+  if(s==='done')    return '<span class="badge badge-teal">🌐 ตั้งค่าแล้ว</span>';
+  if(s==='pending') return '<span class="badge badge-yellow">⏳ ยังไม่ได้ตั้งค่า</span>';
+  if(s==='none')    return '<span class="badge badge-gray">— ไม่มีข้อมูล</span>';
+  return '<span class="badge badge-gray">'+esc(v)+'</span>';
+}
+function statusClass(v) {
+  const sl = (v||'').toLowerCase().replace(/\s/g,'');
+  if (sl==='complete')    return 'st-complete';
+  if (sl==='abnormal')    return 'st-abnormal';
+  if (sl==='inprogress')  return 'st-inprogress';
+  if (sl==='-'||sl==='')  return 'st-none';
+  return 'st-inprogress';
+}
+function stColor(cl) {
+  if(cl==='st-complete')   return 'var(--accent2)';
+  if(cl==='st-abnormal')   return 'var(--accent3)';
+  if(cl==='st-inprogress') return 'var(--accent5)';
+  return '#3a4557';
+}
+function stBadge(v) {
+  const cl=statusClass(v);
+  const c=stColor(cl);
+  const bg=cl==='st-complete'?'rgba(40,209,71,.15)':cl==='st-abnormal'?'rgba(255,77,46,.15)':cl==='st-inprogress'?'rgba(255,140,0,.15)':'rgba(58,69,87,.2)';
+  const label=cl==='st-complete'?'Complete':cl==='st-abnormal'?'Abnormal':cl==='st-inprogress'?'in progress':v||'—';
+  return `<span style="display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:700;color:${c};background:${bg};border:1px solid ${c}55">${label}</span>`;
+}
+
+const MMR_EQUIP = ['Mini PC','Data Box','Grafana'];
 let msfFilter='all', msfOpenSet=new Set(), msfRows=[];
 
-function statusClass(v) {
-  const sl=(v||'').toLowerCase().replace(/\s/g,'');
-  if(sl==='complete')   return 'st-complete';
-  if(sl==='abnormal')   return 'st-abnormal';
-  if(sl==='inprogress') return 'st-inprogress';
-  if(sl==='ปกติ')       return 'st-complete';
-  if(sl==='ผิดปกติ')    return 'st-abnormal';
-  return 'st-wait';
-}
-
-document.addEventListener('click', function(e) {
-  document.querySelectorAll('.msf-size-btn-wrap.popup-open').forEach(el=>{ if(!el.contains(e.target)) el.classList.remove('popup-open'); });
-});
-function toggleSizePopup(el,e) {
-  e.stopPropagation();
-  const isOpen=el.classList.contains('popup-open');
-  document.querySelectorAll('.msf-size-btn-wrap.popup-open').forEach(x=>x.classList.remove('popup-open'));
-  if(!isOpen) el.classList.add('popup-open');
-}
-
-// ── renderMSF: HTML scaffold ──
-function renderMSF(data) {
-  msfRows = data.rows.filter(r=>r['เบอร์เรือ']&&r['เบอร์เรือ'].trim());
-  if(data.meta) window._msfMeta = data.meta;
-  return `
-  <div id="msfStatsRow" class="stats-row"></div>
-  <div id="msfOnlineBox" class="prog-box"></div>
-  <div class="msf-filter-bar">
-    <input id="msfSearch" placeholder="ค้นหาเบอร์เรือ / สถานที่จอด..." oninput="msfRenderList()">
-    <button class="msf-fbtn active" id="mf-all" onclick="msfSetFilter('all')">ทั้งหมด</button>
-    <div class="msf-size-btn-wrap" id="wrap-24" onclick="toggleSizePopup(this,event)">
-      <button class="msf-fbtn" id="mf-24" onclick="event.stopPropagation();msfSetFilter('24')">24 เมตร ▾</button>
-      <div id="popup-24" class="msf-size-popup"></div>
-    </div>
-    <div class="msf-size-btn-wrap" id="wrap-19" onclick="toggleSizePopup(this,event)">
-      <button class="msf-fbtn" id="mf-19" onclick="event.stopPropagation();msfSetFilter('19')">19 เมตร ▾</button>
-      <div id="popup-19" class="msf-size-popup"></div>
-    </div>
-    <button class="msf-fbtn" id="mf-complete"   onclick="msfSetFilter('complete')">✅ Complete</button>
-    <button class="msf-fbtn" id="mf-abnormal"   onclick="msfSetFilter('abnormal')">⚠️ Abnormal</button>
-    <button class="msf-fbtn" id="mf-inprogress" onclick="msfSetFilter('inprogress')">🔄 In Progress</button>
-  </div>
-  <div class="legend-row">
-    <div class="legend-item"><span class="dot dot-ok"></span> Complete</div>
-    <div class="legend-item"><span class="dot dot-err"></span> Abnormal</div>
-    <div class="legend-item"><span class="dot dot-wait"></span> In Progress / รอตรวจสอบ</div>
-    <div class="legend-item"><span class="dot dot-none"></span> ไม่มีข้อมูล</div>
-  </div>
-  <div class="ship-list" id="msfShipList"></div>`;
-}
-
-function initMSFPanel() {
-  msfRenderStats();
-  msfRenderOnlineBox();
-  msfRenderList();
-  const p24=document.getElementById('popup-24'), p19=document.getElementById('popup-19');
-  if(p24) p24.outerHTML=buildSizePopupEl('24','24');
-  if(p19) p19.outerHTML=buildSizePopupEl('19','19');
-}
-
-// ── stat cards: Total + 24m + 19m + CCTV/Grafana stats ──
-function msfRenderStats() {
-  const rows=msfRows;
-  const total  = rows.length;
-  const s24    = rows.filter(r=>(r['ขนาดเรือ']||'').includes('24')).length;
-  const s19    = rows.filter(r=>(r['ขนาดเรือ']||'').includes('19')).length;
-  const sOther = total - s24 - s19;
-  const cctv_complete   = rows.filter(r=>statusClass(r['CCTV']||'')==='st-complete').length;
-  const cctv_abnormal   = rows.filter(r=>statusClass(r['CCTV']||'')==='st-abnormal').length;
-  const cctv_inprogress = rows.filter(r=>statusClass(r['CCTV']||'')==='st-inprogress').length;
-  const graf_complete   = rows.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
-  const graf_abnormal   = rows.filter(r=>statusClass(r['Grafana']||'')==='st-abnormal').length;
-  const el=document.getElementById('msfStatsRow'); if(!el) return;
-  const sc=(c,icon,l,v,s,sub2)=>`<div class="stat-card" style="border-top:2px solid ${c}">
-    <div class="stat-label">${icon} ${l}</div>
-    <div class="stat-value" style="color:${c}">${v}</div>
-    <div class="stat-sub">${s}${sub2?'<br><span style="color:var(--text-muted);font-size:10px">'+sub2+'</span>':''}</div></div>`;
-  el.innerHTML =
-    sc('var(--accent)',  '🚢','เรือทั้งหมด',      total,          'ลำ', '24m: '+s24+' · 19m: '+s19+(sOther>0?' · อื่นๆ: '+sOther:'')) +
-    sc('var(--accent)',  '📏','24 เมตร',           s24,            'ลำ') +
-    sc('var(--accent)',  '📏','19 เมตร',           s19,            'ลำ') +
-    sc('var(--accent2)', '✅','CCTV Complete',     cctv_complete,  'ลำ') +
-    sc('var(--accent3)', '⚠️','CCTV Abnormal',    cctv_abnormal,  'ลำ') +
-    sc('var(--accent2)', '✅','Grafana Complete',  graf_complete,  'ลำ') +
-    sc('var(--accent3)', '⚠️','Grafana Abnormal', graf_abnormal,  'ลำ');
-}
-
-// ── overview progress box ──
-function msfRenderOnlineBox() {
-  const rows=msfRows, total=rows.length;
-  const gComp=rows.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
-  const gAbn =rows.filter(r=>statusClass(r['Grafana']||'')==='st-abnormal').length;
-  const gProg=rows.filter(r=>statusClass(r['Grafana']||'')==='st-inprogress').length;
-  const cComp=rows.filter(r=>statusClass(r['CCTV']||'')==='st-complete').length;
-  const cAbn =rows.filter(r=>statusClass(r['CCTV']||'')==='st-abnormal').length;
-  const cProg=rows.filter(r=>statusClass(r['CCTV']||'')==='st-inprogress').length;
-
-  const meta=window._msfMeta||{};
-  const parseThDate=s=>{if(!s||s==='-')return null;const pts=s.split('/').map(Number);if(pts.length<3)return null;let[d,m,y]=pts;if(y<100)y+=2500;return new Date(y-543,m-1,d);};
-  const sd=parseThDate(meta.startDate),ed=parseThDate(meta.endDate),today=new Date();
-  let dateHtml='';
-  if(sd&&ed){
-    const totalDays=Math.round((ed-sd)/864e5), rawE=Math.round((today-sd)/864e5);
-    const elapsed=Math.min(rawE,totalDays), remain=Math.max(Math.round((ed-today)/864e5),0);
-    const isDone=today>=ed, isInProg=today>=sd&&!isDone;
-    const tPct=totalDays>0?Math.min(Math.round(rawE/totalDays*100),100):0;
-    dateHtml=`<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-        <span style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase">🗓️ ระยะเวลาโครงการ</span>
-        ${isDone?'<span class="badge badge-green">✅ เสร็จสิ้นแล้ว</span>':isInProg?'<span style="display:inline-flex;align-items:center;gap:5px;background:rgba(61,155,255,.14);border:1px solid rgba(61,155,255,.35);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;color:var(--accent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse-dot 1.4s infinite"></span>In Progress</span>':''}
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px">
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:7px;padding:8px 12px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">🟢 เริ่มต้น</div><div style="font-size:13px;font-weight:700;color:var(--accent2)">${meta.startDate||'-'}</div></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:7px;padding:8px 12px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">🏁 สิ้นสุด</div><div style="font-size:13px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent3)'}">${meta.endDate||'-'}</div></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:7px;padding:8px 12px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">📅 ระยะเวลา</div><div style="font-size:13px;font-weight:700;color:#00cfff">${totalDays} วัน</div></div>
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:7px;padding:8px 12px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase">${isDone?'✅ ใช้ไป':'⏱️ ดำเนินการ'}</div><div style="font-size:13px;font-weight:700;color:var(--accent5)">${elapsed} วัน${!isDone&&remain>0?' (เหลือ '+remain+' วัน)':''}</div></div>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px"><span style="font-size:10px;color:var(--text-muted)">ความคืบหน้าระยะเวลา</span><span style="font-size:11px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent)'}">${tPct}%</span></div>
-      <div style="height:5px;background:var(--card);border-radius:3px;overflow:hidden"><div style="height:100%;width:${tPct}%;border-radius:3px;background:${isDone?'var(--accent2)':'linear-gradient(90deg,var(--accent),#00cfff)'}"></div></div>
-    </div>`;
-  }
-
-  const stackBar=(comp,abn,prog,tot)=>{
-    const pc=tot?Math.round(comp/tot*100):0,pa=tot?Math.round(abn/tot*100):0,pp=tot?Math.round(prog/tot*100):0;
-    return `<div style="height:10px;background:var(--card);border-radius:5px;overflow:hidden;display:flex">
-      <div style="width:${pc}%;background:var(--accent2)" title="Complete ${comp}"></div>
-      <div style="width:${pa}%;background:var(--accent3)" title="Abnormal ${abn}"></div>
-      <div style="width:${pp}%;background:var(--accent)"  title="In Progress ${prog}"></div>
-    </div>
-    <div style="display:flex;gap:12px;font-size:11px;margin-top:5px;flex-wrap:wrap">
-      <span style="color:var(--accent2)">✅ Complete ${comp} (${pc}%)</span>
-      <span style="color:var(--accent3)">⚠️ Abnormal ${abn} (${pa}%)</span>
-      ${prog>0?'<span style="color:var(--accent)">🔄 In Progress '+prog+' ('+pp+'%)</span>':''}
-    </div>`;
-  };
-
-  const el=document.getElementById('msfOnlineBox'); if(!el) return;
-  el.innerHTML=`
-    <div class="prog-box-title">📊 ภาพรวมความคืบหน้า (${total} ลำ)</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
-      <div><div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase">📡 MMR Grafana</div>${stackBar(gComp,gAbn,gProg,total)}</div>
-      <div><div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase">📷 CCTV Hikvision</div>${stackBar(cComp,cAbn,cProg,total)}</div>
-    </div>
-    ${dateHtml}`;
-}
-
-function msfSetFilter(f) {
-  msfFilter=f;
-  document.querySelectorAll('.msf-fbtn').forEach(b=>b.classList.remove('active'));
-  const b=document.getElementById('mf-'+f); if(b) b.classList.add('active');
-  msfRenderList();
-}
-
-// ── msfRenderList: filters without ใช้งาน/ไม่ได้ใช้งาน/online/noonline ──
-function msfRenderList() {
-  const q=(document.getElementById('msfSearch')||{}).value||'', ql=q.toLowerCase();
-  let rows=msfRows;
-  if      (msfFilter==='24')         rows=rows.filter(r=>(r['ขนาดเรือ']||'').includes('24'));
-  else if (msfFilter==='19')         rows=rows.filter(r=>(r['ขนาดเรือ']||'').includes('19'));
-  else if (msfFilter==='complete')   rows=rows.filter(r=>statusClass(r['CCTV']||'')==='st-complete');
-  else if (msfFilter==='abnormal')   rows=rows.filter(r=>statusClass(r['CCTV']||'')==='st-abnormal'||statusClass(r['Grafana']||'')==='st-abnormal');
-  else if (msfFilter==='inprogress') rows=rows.filter(r=>statusClass(r['CCTV']||'')==='st-inprogress');
-  if(ql) rows=rows.filter(r=>(r['เบอร์เรือ']||'').toLowerCase().includes(ql)||(r['ขนาดเรือ']||'').toLowerCase().includes(ql)||(r['สถานที่จอด']||'').toLowerCase().includes(ql));
-  const c=document.getElementById('msfShipList'); if(!c) return;
-  c.innerHTML=rows.length?rows.map(r=>msfShipCard(r)).join(''):'<div class="empty-msg">ไม่พบข้อมูลเรือที่ตรงกัน</div>';
-}
-
-function buildSizePopupEl(sizeKeyword,filterKey) {
-  const ships=msfRows.filter(r=>(r['ขนาดเรือ']||'').includes(sizeKeyword));
-  const chips=ships.map(r=>{
-    const cl=statusClass(r['CCTV']||'');
-    const icon=cl==='st-complete'?'✅':cl==='st-abnormal'?'⚠️':'🔄';
-    const dotColor='#3d9bff';
-    const loc=r['สถานที่จอด']||'';
-    return `<span class="popup-ship-chip" onclick="msfJumpToShip('${esc(r['เบอร์เรือ']||'').replace(/'/g,"\\'")}','${filterKey}')" title="${esc(loc)}">
-      <span class="chip-dot" style="background:${dotColor}"></span>${esc(r['เบอร์เรือ']||'')} ${icon}
-    </span>`;
-  }).join('');
-  const c_comp=ships.filter(r=>statusClass(r['CCTV']||'')==='st-complete').length;
-  const c_abn =ships.filter(r=>statusClass(r['CCTV']||'')==='st-abnormal').length;
-  const c_prog=ships.filter(r=>statusClass(r['CCTV']||'')==='st-inprogress').length;
-  return `<div id="popup-${filterKey}" class="msf-size-popup">
-    <div class="popup-header"><span>🚢 ${sizeKeyword} เมตร</span><span class="popup-count">${ships.length} ลำ</span></div>
-    <div class="popup-ship-grid">${chips}</div>
-    <div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border);display:flex;gap:10px;font-size:11px;flex-wrap:wrap">
-      <span style="color:var(--accent2)">✅ ${c_comp}</span>
-      <span style="color:var(--accent3)">⚠️ ${c_abn}</span>
-      ${c_prog?'<span style="color:var(--accent)">🔄 '+c_prog+'</span>':''}
-    </div>
-  </div>`;
-}
-
-function msfJumpToShip(shipId,filterKey) {
-  msfSetFilter(filterKey);
-  setTimeout(()=>{
-    const list=document.getElementById('msfShipList'); if(!list) return;
-    list.querySelectorAll('.ship-card').forEach(card=>{
-      const t=card.querySelector('.ship-title-row span');
-      if(t&&t.textContent.trim()===shipId){
-        card.scrollIntoView({behavior:'smooth',block:'center'});
-        card.style.outline='2px solid var(--accent)';
-        setTimeout(()=>{card.style.outline='';},1500);
-      }
-    });
-  },80);
-}
-
+// ──────────────────────────────────────────────
+//  PARSE helpers
+// ──────────────────────────────────────────────
 function msfCountCams(row) {
-  const o=parseInt(row['กล้องปกติ']||''),b=parseInt(row['กล้องผิดปกติ']||'');
-  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return{ok:o,bad:b,wait:0,total:o+b};
+  const o=parseInt(row['กล้องปกติ']||''), b=parseInt(row['กล้องผิดปกติ']||'');
+  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return {ok:o,bad:b,wait:0,total:o+b};
   let ok=0,bad=0,wait=0;
   for(let i=1;i<=14;i++){
     const v=(row['CAM-'+String(i).padStart(2,'0')]||'');
     const cl=statusClass(v);
     if(cl==='st-complete') ok++;
     else if(cl==='st-abnormal') bad++;
-    else if(v) wait++;
+    else if(v&&cl!=='st-none') wait++;
   }
-  return{ok,bad,wait,total:ok+bad+wait};
+  return {ok,bad,wait,total:ok+bad+wait};
 }
 
-function msfShipCard(row) {
-  const id=row['เบอร์เรือ']||'?', sz=row['ขนาดเรือ']||'', loc=row['สถานที่จอด']||'';
-  const grafSt=row['Grafana']||'', cctvSt=row['CCTV']||'';
-  const c=msfCountCams(row), isOpen=msfOpenSet.has(id);
-  const grafCl=statusClass(grafSt), cctvCl=statusClass(cctvSt);
+// ──────────────────────────────────────────────
+//  RENDER MSF (main entry)
+// ──────────────────────────────────────────────
+function renderMSF(data) {
+  msfRows = data.rows.filter(r=>(r['Boat ID']||r['เบอร์เรือ']||'').trim());
+  if(data.meta) window._msfMeta = data.meta;
+  return `<div id="msfPanel"></div>`;
+}
 
-  const pillColor=cl=>cl==='st-complete'?'var(--accent2)':cl==='st-abnormal'?'var(--accent3)':'var(--accent)';
-  const pillBg  =cl=>cl==='st-complete'?'rgba(40,209,71,.1)':cl==='st-abnormal'?'rgba(255,77,46,.1)':'rgba(61,155,255,.1)';
-  const pillBrd =cl=>cl==='st-complete'?'rgba(40,209,71,.35)':cl==='st-abnormal'?'rgba(255,77,46,.35)':'rgba(61,155,255,.35)';
+function initMSFPanel() {
+  const el = document.getElementById('msfPanel'); if(!el) return;
+  el.innerHTML = buildMSFDash();
+  // bind matrix filters
+  document.getElementById('mx-size') && document.getElementById('mx-size').addEventListener('change', renderMatrix);
+  document.getElementById('mx-dock') && document.getElementById('mx-dock').addEventListener('change', renderMatrix);
+  document.getElementById('mx-search') && document.getElementById('mx-search').addEventListener('input', renderMatrix);
+  document.getElementById('mx-prob') && document.getElementById('mx-prob').addEventListener('change', renderMatrix);
+  renderMatrix();
+}
 
-  const grafPill=grafSt?`<span style="font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid ${pillBrd(grafCl)};color:${pillColor(grafCl)};background:${pillBg(grafCl)}">📡 ${esc(grafSt)}</span>`:'';
-  const cctvPill=cctvSt?`<span style="font-size:10px;padding:2px 7px;border-radius:4px;border:1px solid ${pillBrd(cctvCl)};color:${pillColor(cctvCl)};background:${pillBg(cctvCl)}">📷 ${esc(cctvSt)}</span>`:'';
-  const locPill =loc?`<span style="font-size:10px;color:var(--text-muted);background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 7px">📍 ${esc(loc)}</span>`:'';
-  const szPill  =sz?`<span style="font-size:10px;color:var(--text-muted);background:var(--card);border:1px solid var(--border);border-radius:4px;padding:2px 6px">${esc(sz)}</span>`:'';
-  const camColor=c.bad>0?'var(--accent3)':c.ok>0?'var(--accent2)':'var(--accent)';
-  const camSum  =c.total>0?`<span style="font-size:11px;font-family:IBM Plex Mono,monospace;color:${camColor}">${c.ok}/${c.total}</span>`:'';
+function getBoatId(r){ return r['Boat ID']||r['เบอร์เรือ']||''; }
+function getDock(r)  { return r['ท่าจอด']||r['สถานที่จอด']||''; }
+function getSize(r)  { return r['ขนาดเรือ']||''; }
+function getNVR(r)   { return (r['NVR Serial No.']||r[' NVR S/N ']||r['NVR S/N']||'').trim(); }
+function getChecked(r){ const v=(r['ตรวจสอบแล้ว']||'').toUpperCase(); return v==='TRUE'||v==='✓'||v==='ครบ'; }
 
-  const nvrSN=(row[' NVR S/N ']||row['NVR S/N']||'').trim();
-  const grafRemarkV=row['Remark (Grafana)']||'', cctvRemarkV=row['Remark (CCTV)']||'';
-  const grafAccent=pillColor(grafCl), cctvAccent=pillColor(cctvCl);
-  const grafIcon=grafCl==='st-complete'?'✅':grafCl==='st-abnormal'?'⚠️':'🔄';
-  const cctvIcon=cctvCl==='st-complete'?'✅':cctvCl==='st-abnormal'?'⚠️':'🔄';
+function buildMSFDash() {
+  const rows = msfRows;
+  const total = rows.length;
+  const sz24  = rows.filter(r=>getSize(r).includes('24'));
+  const sz19  = rows.filter(r=>getSize(r).includes('19'));
+  const checked = rows.filter(r=>getChecked(r)).length;
 
-  const body=isOpen?`<div class="ship-body">
-    <!-- Grafana block -->
-    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid ${grafAccent};border-radius:8px;padding:12px 16px;margin-bottom:10px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:${grafRemarkV?'10px':'0'}">
-        <span style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em">📡 MMR Grafana</span>
-        <span style="font-size:12px;font-weight:700;color:${grafAccent};background:${pillBg(grafCl)};border:1px solid ${pillBrd(grafCl)};border-radius:6px;padding:3px 10px">${grafIcon} ${esc(grafSt||'—')}</span>
-      </div>
-      ${grafRemarkV?`<div style="display:flex;align-items:flex-start;gap:6px;background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.2);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--accent5);margin-top:8px">📝 <span>${esc(grafRemarkV)}</span></div>`:''}
+  // MMR totals per equip
+  function equipStats(key) {
+    return {
+      comp: rows.filter(r=>statusClass(r[key]||'')==='st-complete').length,
+      abn:  rows.filter(r=>statusClass(r[key]||'')==='st-abnormal').length,
+      prog: rows.filter(r=>statusClass(r[key]||'')==='st-inprogress').length,
+      none: rows.filter(r=>statusClass(r[key]||'')==='st-none').length,
+    };
+  }
+  const mmrKeys = ['Mini PC','Data Box','Grafana'];
+  const mmrStats = {};
+  mmrKeys.forEach(k=>{ mmrStats[k]=equipStats(k); });
+
+  // CCTV totals
+  let camOk=0,camBad=0,camWait=0,camTotal=0;
+  rows.forEach(r=>{ const c=msfCountCams(r); camOk+=c.ok; camBad+=c.bad; camWait+=c.wait; camTotal+=c.total||14; });
+  const camPct = camTotal>0?Math.round(camOk/camTotal*100):0;
+
+  // Grafana complete for hero
+  const grafComp24 = sz24.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
+  const grafComp19 = sz19.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
+
+  // Date meta
+  const meta = window._msfMeta||{};
+  const parseThDate = s=>{ if(!s||s==='-')return null; const[d,m,y]=s.split('/').map(Number); if(!d||!m||!y)return null; return new Date((y<100?y+2500:y)-543,m-1,d); };
+  const sd=parseThDate(meta.startDate), ed=parseThDate(meta.endDate), today=new Date();
+  const isDone=ed&&today>=ed, isInProg=sd&&ed&&today>=sd&&!isDone;
+  const tPct=sd&&ed?Math.min(Math.round((today-sd)/(ed-sd)*100),100):null;
+  const dateRange=meta.startDate&&meta.endDate?`${meta.startDate} – ${meta.endDate}`:'';
+
+  // stacked bar builder
+  function stackBar(comp,abn,prog,tot,noneLabel='') {
+    const pc=tot?Math.round(comp/tot*100):0;
+    const pa=tot?Math.round(abn/tot*100):0;
+    const pp=tot?Math.round(prog/tot*100):0;
+    const pn=100-pc-pa-pp;
+    return `
+    <div style="height:10px;background:var(--card);border-radius:5px;overflow:hidden;display:flex;margin-bottom:5px">
+      <div style="width:${pc}%;background:var(--accent2)" title="Complete ${comp}"></div>
+      <div style="width:${pa}%;background:var(--accent3)" title="Abnormal ${abn}"></div>
+      <div style="width:${pp}%;background:var(--accent5)" title="In progress ${prog}"></div>
+      ${pn>0?`<div style="width:${pn}%;background:#2a3445" title="${noneLabel||'ไม่มีข้อมูล'}"></div>`:''}
     </div>
-    <!-- CCTV block -->
-    <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid ${cctvAccent};border-radius:8px;padding:12px 16px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <span style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em">📷 CCTV Hikvision</span>
-        <span style="font-size:12px;font-weight:700;color:${cctvAccent};background:${pillBg(cctvCl)};border:1px solid ${pillBrd(cctvCl)};border-radius:6px;padding:3px 10px">${cctvIcon} ${esc(cctvSt||'—')}</span>
-      </div>
-      ${nvrSN?`<div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:10px;gap:8px;flex-wrap:wrap">
-        <div style="display:flex;align-items:center;gap:8px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01M17 12h.01M7 12h.01"/></svg>
-          <span style="font-size:12px;font-weight:600">NVR</span>
-          <span style="font-family:IBM Plex Mono,monospace;font-size:11px;color:var(--text-muted)">${esc(nvrSN)}</span>
-        </div>
-        <span class="badge badge-green">ใช้งานได้</span>
-      </div>`:''}
-      <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600">กล้อง CCTV (${c.total} ตัว)</div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px">
-        ${(()=>{let out='';for(let i=1;i<=14;i++){
-          const k='CAM-'+String(i).padStart(2,'0');
-          const v=row[k]||'';
-          const cl=statusClass(v);
-          const bc=cl==='st-complete'?'var(--accent2)':cl==='st-abnormal'?'var(--accent3)':'var(--text-muted)';
-          const dc=cl==='st-complete'?'dot-ok':cl==='st-abnormal'?'dot-err':'dot-wait';
-          out+=`<div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid ${bc};border-radius:5px;padding:6px 8px;display:flex;align-items:center;justify-content:space-between" title="${k}: ${v||'—'}"><span style="font-size:10px;font-weight:600;font-family:IBM Plex Mono,monospace;color:var(--text)">${k}</span><span class="dot ${dc}"></span></div>`;
-        }return out;})()}
-      </div>
-      <div style="display:flex;gap:16px;font-size:12px;padding-top:8px;border-top:1px solid var(--border)">
-        <span style="color:var(--accent2)">ปกติ: <strong>${c.ok}</strong></span>
-        <span style="color:var(--accent3)">ผิดปกติ: <strong>${c.bad}</strong></span>
-        ${c.wait>0?`<span style="color:var(--accent)">รอตรวจ: <strong>${c.wait}</strong></span>`:''}
-      </div>
-      ${cctvRemarkV?`<div style="display:flex;align-items:flex-start;gap:6px;background:rgba(255,140,0,.07);border:1px solid rgba(255,140,0,.2);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--accent5);margin-top:8px">📝 <span>${esc(cctvRemarkV)}</span></div>`:''}
-    </div>
-  </div>`:'';
+    <div style="display:flex;gap:10px;font-size:11px;flex-wrap:wrap">
+      <span style="color:var(--accent2)">■ Complete ${comp}</span>
+      ${abn>0?`<span style="color:var(--accent3)">■ Abnormal ${abn}</span>`:''}
+      ${prog>0?`<span style="color:var(--accent5)">■ In progress ${prog}</span>`:''}
+      ${pn>0&&noneLabel?`<span style="color:#3a4557">■ ${noneLabel}</span>`:''}
+    </div>`;
+  }
 
-  return `<div class="ship-card">
-    <div class="ship-header" onclick="msfToggle('${esc(id)}')">
-      <div class="ship-title-row">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted);flex-shrink:0"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2"/><path d="m4 20 1.5-5h13L20 20"/><path d="M8 15V10M12 15V9M16 15v-4"/><rect x="9" y="4" width="6" height="5" rx="1"/></svg>
-        <span style="font-weight:700">${esc(id)}</span>
-        ${szPill}${locPill}${grafPill}${cctvPill}
+  // donut SVG
+  function donut(ok,bad,wait,tot) {
+    const r=54,cx=64,cy=64,stroke=14;
+    const circ=2*Math.PI*r;
+    const pOk=tot?ok/tot:0, pBad=tot?bad/tot:0, pWait=tot?wait/tot:0;
+    const dOk=pOk*circ, dBad=pBad*circ, dWait=pWait*circ, dRest=circ-dOk-dBad-dWait;
+    let offset=circ*0.25; // start top
+    const arc=(d,color)=>{ const s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-offset+circ}" style="transition:stroke-dasharray .8s"/>`; offset-=d; return s; };
+    const pct=tot>0?Math.round(pOk):0;
+    return `<svg width="128" height="128" viewBox="0 0 128 128">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1e2a38" stroke-width="${stroke}"/>
+      ${arc(dOk,'#28d147')}${arc(dBad,'#ff4d2e')}${arc(dWait,'#ff8c00')}
+      <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="#f0f6fc" font-size="20" font-weight="800" font-family="IBM Plex Mono,monospace">${pct}%</text>
+      <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="#7d8fa3" font-size="11" font-family="Sarabun,sans-serif">ปกติ</text>
+    </svg>`;
+  }
+
+  // table rows
+  const trs = rows.map((r,i)=>{
+    const id=getBoatId(r), sz=getSize(r), dk=getDock(r);
+    const mp=r['Mini PC']||'', db=r['Data Box']||'', gf=r['Grafana']||'';
+    const c=msfCountCams(r);
+    const chk=getChecked(r);
+    const rmrG=(r['หมายเหตุ MMR']||r['Remark (Grafana)']||'').trim();
+    const rmrC=(r['หมายเหตุ CCTV']||r['Remark (CCTV)']||'').trim();
+    return `<tr>
+      <td style="color:var(--text-muted);font-family:IBM Plex Mono,monospace;font-size:11px">${i+1}</td>
+      <td style="font-weight:700;white-space:nowrap">${esc(id)}</td>
+      <td style="font-size:11px;color:var(--text-muted)">${sz.replace(' เมตร','м')}</td>
+      <td style="font-size:11px">${esc(dk)}</td>
+      <td>${stBadge(mp)}</td>
+      <td>${stBadge(db)}</td>
+      <td>${stBadge(gf)}</td>
+      <td style="font-family:IBM Plex Mono,monospace;font-size:12px;color:${c.bad>0?'var(--accent3)':'var(--accent2)'}">${c.ok}</td>
+      <td style="font-family:IBM Plex Mono,monospace;font-size:12px;color:${c.bad>0?'var(--accent3)':'var(--text-muted)'}">${c.bad}</td>
+      <td><span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;${chk?'background:rgba(40,209,71,.15);color:var(--accent2)':'background:rgba(255,77,46,.12);color:var(--accent3)'}">${chk?'ครบ':'ไม่ครบ'}</span></td>
+      <td style="font-size:11px;color:var(--text-muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(rmrG)}">${rmrG||'—'}</td>
+      <td style="font-size:11px;color:var(--text-muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(rmrC)}">${rmrC||'—'}</td>
+    </tr>`;
+  }).join('');
+
+  // dock options
+  const docks = [...new Set(rows.map(r=>getDock(r)).filter(Boolean))];
+  const dockOpts = docks.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('');
+
+  return `
+  <!-- ══ HERO ══ -->
+  <div style="background:linear-gradient(135deg,#0a1628 0%,#0d1f3c 100%);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden">
+    <div style="position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle,rgba(61,155,255,.06) 0%,transparent 70%);pointer-events:none"></div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">● ITS · E-FERRY OPERATIONS</div>
+        <h1 style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:6px">ความคืบหน้างาน MMR Grafana &amp; CCTV</h1>
+        <p style="font-size:13px;color:var(--text-muted)">ภาพรวมความพร้อมของระบบ MMR Grafana และ CCTV Hikvision ครบทั้ง ${total} ลำ อัปเดตจากข้อมูลตรวจสอบล่าสุด</p>
       </div>
-      <div class="ship-meta-row">
-        ${camSum}
-        <span class="chevron ${isOpen?'open':''}">▾</span>
+      <div style="text-align:right">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">2 VESSELS · 19M &amp; 24M CLASS</div>
+        ${dateRange?`<div style="font-size:12px;color:var(--text-muted);margin-top:2px">ระยะเวลาโครงการ: ${dateRange}</div>`:''}
+        ${tPct!==null?`<div style="margin-top:8px;display:inline-flex;align-items:center;gap:7px;background:rgba(40,209,71,.12);border:1px solid rgba(40,209,71,.3);border-radius:6px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--accent2)">${isDone?'✅ แก้ไขวันที่โครงการเรียบร้อยแล้ว':isInProg?`<span style="width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse-dot 1.4s infinite"></span>In Progress ${tPct}%`:''}</div>`:''}</div>
+    </div>
+    <!-- 4 stat cards -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px">
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">จำนวนเรือทั้งหมด</div>
+        <div style="font-size:30px;font-weight:800;color:var(--text);font-family:IBM Plex Mono,monospace">${total} <span style="font-size:16px;font-weight:400">ลำ</span></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">24 เมตร ${sz24.length} ลำ · 19 เมตร ${sz19.length} ลำ</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent5);border-radius:10px;padding:16px 18px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ระบบ MMR Grafana</div>
+        <div style="font-size:30px;font-weight:800;color:var(--accent5);font-family:IBM Plex Mono,monospace">${mmrStats['Grafana'].comp} <span style="font-size:14px;font-weight:400;color:var(--text-muted)">/ ${total} ลำ</span></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">24 เมตร ${grafComp24}/${sz24.length} ลำ · 19 เมตร ${grafComp19}/${sz19.length} ลำ</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent2);border-radius:10px;padding:16px 18px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ดำเนินการตรวจสอบแล้ว</div>
+        <div style="font-size:30px;font-weight:800;color:var(--accent2);font-family:IBM Plex Mono,monospace">${checked} <span style="font-size:14px;font-weight:400;color:var(--text-muted)">/ ${total} ลำ</span></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">เหลือ ${total-checked} ลำที่ยังไม่ครบ</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent3);border-radius:10px;padding:16px 18px">
+        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ความคืบหน้าโครงการโดยรวม</div>
+        <div style="font-size:30px;font-weight:800;color:var(--accent3);font-family:IBM Plex Mono,monospace">${camPct} <span style="font-size:16px;font-weight:400">%</span></div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">กล้องปกติ ${camOk}/${camTotal} · CCTV ผิดปกติ ${camBad}</div>
       </div>
     </div>
-    ${body}
+  </div>
+
+  <!-- ══ MMR BARS + CCTV DONUT ══ -->
+  <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:20px">
+    <!-- MMR stacked bars -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px">
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px">สถานะระบบ MMR Grafana รายอุปกรณ์ · แยกตามขนาดเรือ</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">${total} VESSELS</div>
+      <!-- 24m -->
+      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        เรือ 24 เมตร <span style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 8px;font-size:11px;color:var(--text-muted)">${sz24.length} ลำ</span>
+      </div>
+      ${mmrKeys.map(k=>{
+        const s24={comp:sz24.filter(r=>statusClass(r[k]||'')==='st-complete').length, abn:sz24.filter(r=>statusClass(r[k]||'')==='st-abnormal').length, prog:sz24.filter(r=>statusClass(r[k]||'')==='st-inprogress').length};
+        return `<div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <span style="font-size:12px;font-weight:600">${esc(k)}</span>
+            <span style="font-size:11px;color:var(--text-muted)">${s24.comp} Complete · ${s24.abn} Abnormal · ${s24.prog} In progress</span>
+          </div>
+          ${stackBar(s24.comp,s24.abn,s24.prog,sz24.length)}
+        </div>`;
+      }).join('')}
+      <!-- 19m -->
+      <div style="font-size:12px;font-weight:700;color:var(--text);margin:18px 0 4px;display:flex;align-items:center;gap:8px">
+        เรือ 19 เมตร <span style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 8px;font-size:11px;color:var(--text-muted)">${sz19.length} ลำ</span>
+        <span style="font-size:11px;color:var(--text-muted);font-weight:400">ไม่มีอุปกรณ์ Mini PC — นับว่า Complete เมื่อ Data Box และ Grafana ปกติ</span>
+      </div>
+      ${['Data Box','Grafana'].map(k=>{
+        const s19={comp:sz19.filter(r=>statusClass(r[k]||'')==='st-complete').length, abn:sz19.filter(r=>statusClass(r[k]||'')==='st-abnormal').length, prog:sz19.filter(r=>statusClass(r[k]||'')==='st-inprogress').length};
+        return `<div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <span style="font-size:12px;font-weight:600">${esc(k)}</span>
+            <span style="font-size:11px;color:var(--text-muted)">${s19.comp} Complete · ${s19.abn} Abnormal · ${s19.prog} In progress</span>
+          </div>
+          ${stackBar(s19.comp,s19.abn,s19.prog,sz19.length,'ไม่มีอุปกรณ์ (19 เมตร)')}
+        </div>`;
+      }).join('')}
+      <!-- legend -->
+      <div style="display:flex;gap:16px;font-size:11px;color:var(--text-muted);margin-top:6px;flex-wrap:wrap">
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent2);border-radius:2px;margin-right:4px;vertical-align:middle"></span>Complete</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent3);border-radius:2px;margin-right:4px;vertical-align:middle"></span>Abnormal</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent5);border-radius:2px;margin-right:4px;vertical-align:middle"></span>In progress</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#2a3445;border-radius:2px;margin-right:4px;vertical-align:middle"></span>ไม่มีข้อมูล (19 เมตร)</span>
+      </div>
+    </div>
+    <!-- CCTV donut -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column">
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px">CCTV Checklist</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:16px">
+        <span>กล้อง CCTV รวมทั้งหมด (14 ตัว × ${total} ลำ)</span>
+        <span style="cursor:pointer;color:var(--accent)" onclick="">ตรวจครบ / ยังไม่ครบ</span>
+      </div>
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        ${donut(camOk,camBad,camWait,camTotal)}
+      </div>
+      <div style="display:flex;justify-content:space-around;text-align:center;flex:1;align-items:flex-end">
+        <div><div style="font-size:26px;font-weight:800;color:var(--accent2);font-family:IBM Plex Mono,monospace">${camOk}</div><div style="font-size:11px;color:var(--text-muted)">กล้องปกติ</div></div>
+        <div><div style="font-size:26px;font-weight:800;color:var(--accent3);font-family:IBM Plex Mono,monospace">${camBad}</div><div style="font-size:11px;color:var(--accent3)">กล้องผิดปกติ</div></div>
+        <div><div style="font-size:26px;font-weight:800;color:var(--accent5);font-family:IBM Plex Mono,monospace">${camWait}</div><div style="font-size:11px;color:var(--accent5)">ยังไม่ตรวจสอบ</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ HEALTH MATRIX ══ -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+      <div>
+        <div style="font-size:15px;font-weight:700">MMR Grafana &amp; CCTV Health Matrix</div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">แต่ละแถว = เรือ 1 ลำ · คอลัมน์ Grafana = สถานะ Mini PC/Data Box/Grafana · คอลัมน์ 01-14 = กล้อง CAM-01 ถึง CAM-14 · คลิกชื่อเรือเพื่อดูรายละเอียด</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
+      <select id="mx-size" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px">
+        <option value="">ทุกขนาดเรือ</option>
+        <option value="24">24 เมตร</option>
+        <option value="19">19 เมตร</option>
+      </select>
+      <select id="mx-dock" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px">
+        <option value="">ทุกท่าจอด</option>
+        ${dockOpts}
+      </select>
+      <input id="mx-search" placeholder="ค้นหา Boat ID..." style="padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px;width:160px;outline:none">
+      <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);cursor:pointer">
+        <input type="checkbox" id="mx-prob" style="cursor:pointer"> แสดงเฉพาะที่มีปัญหา
+      </label>
+    </div>
+    <div id="mx-container" style="overflow-x:auto"></div>
+  </div>
+
+  <!-- ══ DATA TABLE ══ -->
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <div style="font-size:14px;font-weight:700">รายการเรือทั้งหมด</div>
+      <div style="font-size:11px;color:var(--text-muted)">คลิกหัวคอลัมน์เพื่อจัดเรียง</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="data-table" style="min-width:900px">
+        <thead><tr>
+          <th>NO</th><th>BOAT ID</th><th>ขนาด</th><th>ท่าจอด</th>
+          <th>MINI PC</th><th>DATA BOX</th><th>GRAFANA</th>
+          <th>กล้องปกติ</th><th>กล้องผิดปกติ</th><th>CHECKLIST</th>
+          <th>REMARK MMR/GRAFANA</th><th>REMARK CCTV</th>
+        </tr></thead>
+        <tbody>${trs}</tbody>
+      </table>
+    </div>
   </div>`;
 }
 
-function msfToggle(id) { if(msfOpenSet.has(id)) msfOpenSet.delete(id); else msfOpenSet.add(id); msfRenderList(); }
+// ──────────────────────────────────────────────
+//  HEALTH MATRIX render
+// ──────────────────────────────────────────────
+function renderMatrix() {
+  const szF   = (document.getElementById('mx-size')||{}).value||'';
+  const dkF   = (document.getElementById('mx-dock')||{}).value||'';
+  const srF   = ((document.getElementById('mx-search')||{}).value||'').toLowerCase();
+  const probF = (document.getElementById('mx-prob')||{}).checked;
 
-// ── CCTV Panel ──
+  let rows = msfRows;
+  if(szF)  rows = rows.filter(r=>getSize(r).includes(szF));
+  if(dkF)  rows = rows.filter(r=>getDock(r)===dkF);
+  if(srF)  rows = rows.filter(r=>getBoatId(r).toLowerCase().includes(srF));
+  if(probF) rows = rows.filter(r=>{
+    const gf=statusClass(r['Grafana']||'');
+    const c=msfCountCams(r);
+    return gf==='st-abnormal'||c.bad>0;
+  });
+
+  const c = document.getElementById('mx-container'); if(!c) return;
+  if(!rows.length){ c.innerHTML='<div style="text-align:center;padding:32px;color:var(--text-muted)">ไม่พบข้อมูล</div>'; return; }
+
+  const camSize=22;
+  const dotCell=(v)=>{
+    const cl=statusClass(v);
+    const bg=cl==='st-complete'?'#28d147':cl==='st-abnormal'?'#ff4d2e':cl==='st-inprogress'?'#ff8c00':'#2a3a50';
+    return `<td style="padding:2px"><div style="width:${camSize}px;height:${camSize}px;border-radius:5px;background:${bg}" title="${esc(v||'—')}"></div></td>`;
+  };
+  const mmrDot=(v)=>{
+    const cl=statusClass(v);
+    const bg=cl==='st-complete'?'#28d147':cl==='st-abnormal'?'#ff4d2e':cl==='st-inprogress'?'#ff8c00':'#2a3a50';
+    return `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${bg};margin:0 1px" title="${esc(v||'—')}"></span>`;
+  };
+
+  let html=`<table style="border-collapse:collapse;font-size:11px;white-space:nowrap">
+  <thead><tr style="color:var(--text-muted)">
+    <td style="padding:4px 10px 4px 0;font-weight:600;min-width:90px"></td>
+    <td style="padding:4px 8px;font-weight:600;text-align:center">Grafana</td>
+    ${Array.from({length:14},(_,i)=>`<td style="padding:4px 2px;font-weight:600;text-align:center;width:${camSize+4}px">${String(i+1).padStart(2,'0')}</td>`).join('')}
+  </tr></thead><tbody>`;
+
+  rows.forEach(r=>{
+    const id=getBoatId(r), sz=getSize(r).replace(' เมตร','м');
+    const mp=r['Mini PC']||'', db=r['Data Box']||'', gf=r['Grafana']||'';
+    html+=`<tr>
+      <td style="padding:3px 10px 3px 0;font-weight:700;font-family:IBM Plex Mono,monospace">
+        ${esc(id)} <span style="font-size:9px;color:var(--text-muted);font-weight:400">${sz}</span>
+      </td>
+      <td style="padding:3px 8px;text-align:center">${mmrDot(mp)}${mmrDot(db)}${mmrDot(gf)}</td>
+      ${Array.from({length:14},(_,i)=>dotCell(r['CAM-'+String(i+1).padStart(2,'0')]||'')).join('')}
+    </tr>`;
+  });
+  html+=`</tbody></table>`;
+  c.innerHTML=html;
+}
+
+function msfJumpToShip(id,f) { msfSetFilter(f); }
+function toggleSizePopup(el,e) {}
+function msfSetFilter(f) { msfFilter=f; }
+function msfToggle(id) {}
+
+
+
 function renderCCTV(data) {
-  const{headers,rows}=data;
-  const cctvKey=headers.find(h=>/CCTV.*ชำ|ชำรุด.*CCTV/i.test(h))||'CCTV ชำรุด';
-  const hddKey =headers.find(h=>/HDD.*ชำ|ชำรุด.*HDD/i.test(h))||'HDD ชำรุด';
-  const chkKey =headers.find(h=>h.includes('ตรวจสอบ'))||'ตรวจสอบ';
-  const repKey =headers.find(h=>h.includes('พบปัญหา'))||'พบปัญหาซ้ำ';
-  const startKey=headers.find(h=>h.includes('เริ่ม'))||'';
-  const endKey  =headers.find(h=>h.includes('สิ้นสุด'))||'';
-  const nameKey =headers[0]||'อู่';
-  const totalCCTV=rows.reduce((a,r)=>a+(parseInt(r[cctvKey])||0),0);
-  const totalHDD =rows.reduce((a,r)=>a+(parseInt(r[hddKey])||0),0);
-  const totalRows=rows.length;
-  const checkedRows=rows.filter(r=>{const v=(r[chkKey]||'').trim();return v&&v!=='0'&&v!=='-';}).length;
-  const repeatList=[];
-  rows.forEach(r=>{const v=(r[repKey]||'').trim();if(!v||v==='-')return;const g=r[nameKey]||'';v.split(',').forEach(item=>{const t=item.trim();if(!t)return;repeatList.push({id:t.split(':')[0]?.trim()||t,desc:t.split(':')[1]?.trim()||t,type:t.toLowerCase().includes('hdd')?'HDD':'CCTV',garage:g});});});
+  const {headers,rows} = data;
+  const cctvKey  = headers.find(h=>/CCTV.*ชำ|ชำรุด.*CCTV/i.test(h))||'CCTV ชำรุด';
+  const hddKey   = headers.find(h=>/HDD.*ชำ|ชำรุด.*HDD/i.test(h))||'HDD ชำรุด';
+  const chkKey   = headers.find(h=>h.includes('ตรวจสอบ'))||'ตรวจสอบ';
+  const repKey   = headers.find(h=>h.includes('พบปัญหา'))||'พบปัญหาซ้ำ';
+  const startKey = headers.find(h=>h.includes('เริ่ม'))||'';
+  const endKey   = headers.find(h=>h.includes('สิ้นสุด'))||'';
+  const nameKey  = headers[0]||'อู่';
+  const totalCCTV   = rows.reduce((a,r)=>a+(parseInt(r[cctvKey])||0),0);
+  const totalHDD    = rows.reduce((a,r)=>a+(parseInt(r[hddKey])||0),0);
+  const totalRows   = rows.length;
+  const checkedRows = rows.filter(r=>{const v=(r[chkKey]||'').trim();return v&&v!=='0'&&v!=='-';}).length;
+  const repeatList = [];
+  rows.forEach(r=>{const v=(r[repKey]||'').trim(); if(!v||v==='-') return; const g=r[nameKey]||''; v.split(',').forEach(item=>{const t=item.trim();if(!t)return;repeatList.push({id:t.split(':')[0]?.trim()||t,desc:t.split(':')[1]?.trim()||t,type:t.toLowerCase().includes('hdd')?'HDD':'CCTV',garage:g});});});
   let startDate='-',endDate='-',totalDays='-',elapsedDays='-',isDone=false,isInProgress=false,progressPct=0,remainDays='-';
   if(startKey&&endKey){const as=rows.map(r=>r[startKey]).filter(Boolean),ae=rows.map(r=>r[endKey]).filter(Boolean);if(as.length)startDate=as[0];if(ae.length)endDate=ae[ae.length-1];const p=s=>{if(!s||s==='-')return null;const[d,m,y]=s.split('/').map(Number);if(!d||!m||!y)return null;return new Date(y>2500?y-543:y,m-1,d);};const sd=p(startDate),ed=p(endDate),today=new Date();if(sd&&ed){totalDays=Math.round((ed-sd)/864e5);const raw=Math.round((today-sd)/864e5);elapsedDays=Math.min(raw,totalDays);isDone=today>=ed;isInProgress=today>=sd&&!isDone;progressPct=totalDays>0?Math.min(Math.round(raw/totalDays*100),100):0;remainDays=isDone?0:Math.max(Math.round((ed-today)/864e5),0);}}
   const cctvBar=rows.filter(r=>(parseInt(r[cctvKey])||0)>0).map(r=>({label:r[nameKey]||'-',val:parseInt(r[cctvKey])||0})).sort((a,b)=>b.val-a.val).slice(0,10);
-  const hddBar =rows.filter(r=>(parseInt(r[hddKey])||0)>0).map(r=>({label:r[nameKey]||'-',val:parseInt(r[hddKey])||0})).sort((a,b)=>b.val-a.val).slice(0,10);
+  const hddBar=rows.filter(r=>(parseInt(r[hddKey])||0)>0).map(r=>({label:r[nameKey]||'-',val:parseInt(r[hddKey])||0})).sort((a,b)=>b.val-a.val).slice(0,10);
   const pct=totalRows?Math.round(checkedRows/totalRows*100):0;
   const trs=rows.map((r,i)=>'<tr><td style="color:var(--text-muted);font-family:IBM Plex Mono,monospace">'+(i+1)+'</td><td style="font-weight:600">'+esc(r[nameKey]||'-')+'</td><td>'+((parseInt(r[cctvKey])||0)>0?'<span class="badge badge-blue">'+parseInt(r[cctvKey])+' คัน</span>':'<span style="color:var(--text-muted)">—</span>')+'</td><td>'+((parseInt(r[hddKey])||0)>0?'<span class="badge badge-yellow">'+parseInt(r[hddKey])+' คัน</span>':'<span style="color:var(--text-muted)">—</span>')+'</td><td>'+((()=>{const v=(r[chkKey]||'').trim();return v&&v!=='-'&&v!=='0'?'<span class="badge badge-green">✓ แล้ว</span>':'<span class="badge badge-red">ยังไม่</span>'})())+'</td><td style="color:'+((r[repKey]||'').trim()&&r[repKey]!=='-'?'var(--accent5)':'var(--text-muted)')+'">'+((r[repKey]||'').trim()&&r[repKey]!=='-'?esc(r[repKey]):'—')+'</td></tr>').join('');
   return `
+  <style>
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+    .pulse-dot { display:inline-block; width:8px; height:8px; border-radius:50%; animation: pulse-dot 1.4s ease-in-out infinite; }
+    .timeline-bar-track { height:6px; background:var(--card); border-radius:3px; overflow:hidden; margin-top:6px; }
+    .timeline-bar-fill  { height:100%; border-radius:3px; transition:width .8s cubic-bezier(.22,1,.36,1); }
+  </style>
   <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:14px">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
-      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase">🗓️ ระยะเวลาดำเนินงาน</div>
-      ${isDone?'<span class="badge badge-green">✅ เสร็จสิ้นแล้ว</span>':isInProgress?'<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(61,155,255,.12);border:1px solid rgba(61,155,255,.35);border-radius:6px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--accent)"><span style="width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse-dot 1.4s infinite"></span>In Progress</span>':''}
+      <div style="font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em">🗓️ ระยะเวลาดำเนินงาน</div>
+      ${isDone
+        ? '<span class="badge badge-green" style="font-size:12px;padding:4px 10px">✅ เสร็จสิ้นแล้ว</span>'
+        : isInProgress
+        ? '<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(61,155,255,.12);border:1px solid rgba(61,155,255,.35);border-radius:6px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--accent)"><span class="pulse-dot" style="background:var(--accent)"></span>In Progress</span>'
+        : ''}
     </div>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:${totalDays!=='-'?'14px':'0'}">
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">🟢 วันเริ่มต้น</div><div style="font-size:15px;font-weight:700;color:var(--accent2)">${startDate}</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">🏁 วันสิ้นสุด</div><div style="font-size:15px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent3)'}">${endDate}</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">📅 ระยะเวลา</div><div style="font-size:15px;font-weight:700;color:#00cfff">${totalDays!=='-'?totalDays+' วัน':'-'}</div></div>
-      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px"><div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase">${isDone?'✅ ใช้ไปทั้งหมด':'⏱️ ดำเนินการแล้ว'}</div><div style="font-size:15px;font-weight:700;color:var(--accent5)">${elapsedDays!=='-'?elapsedDays+' วัน':'-'}</div></div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">🟢 วันเริ่มต้น</div>
+        <div style="font-size:15px;font-weight:700;color:var(--accent2)">${startDate}</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">🏁 วันสิ้นสุด</div>
+        <div style="font-size:15px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent3)'}">${endDate}</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">📅 ระยะเวลา</div>
+        <div style="font-size:15px;font-weight:700;color:#00cfff">${totalDays!=='-'?totalDays+' วัน':'-'}</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+        <div style="font-size:10px;color:var(--text-muted);margin-bottom:5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">${isDone?'✅ ใช้ไปทั้งหมด':'⏱️ ดำเนินการแล้ว'}</div>
+        <div style="font-size:15px;font-weight:700;color:var(--accent5)">${elapsedDays!=='-'?elapsedDays+' วัน':'-'}</div>
+      </div>
     </div>
-    ${totalDays!=='-'?`<div style="margin-bottom:6px;display:flex;align-items:center;justify-content:space-between"><span style="font-size:11px;color:var(--text-muted)">ความคืบหน้า</span><span style="font-size:11px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent)'}">${progressPct}%${!isDone&&remainDays!=='-'?' · เหลือ '+remainDays+' วัน':''}</span></div><div class="timeline-bar-track"><div class="timeline-bar-fill" style="width:${progressPct}%;background:${isDone?'var(--accent2)':'linear-gradient(90deg,var(--accent),#00cfff)'}"></div></div>`:''}
+    ${totalDays!=='-'?`
+    <div style="margin-bottom:6px;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:11px;color:var(--text-muted)">ความคืบหน้า</span>
+      <span style="font-size:11px;font-weight:700;color:${isDone?'var(--accent2)':'var(--accent)'}">${progressPct}%${!isDone&&remainDays!=='-'?' · เหลือ '+remainDays+' วัน':''}</span>
+    </div>
+    <div class="timeline-bar-track">
+      <div class="timeline-bar-fill" style="width:${progressPct}%;background:${isDone?'var(--accent2)':'linear-gradient(90deg,var(--accent),#00cfff)'}"></div>
+    </div>`:''}
   </div>
   <div class="prog-box" style="margin-bottom:14px">
     <div class="prog-box-title">ความคืบหน้าการตรวจสอบอู่</div>
@@ -767,8 +1034,8 @@ function renderCCTV(data) {
     <div class="stat-card" style="border-top:2px solid var(--accent5)"><div style="font-size:20px;margin-bottom:4px">⚠️</div><div class="stat-value" style="color:var(--accent5)">${repeatList.length}</div><div class="stat-label">พบปัญหาซ้ำ</div></div>
   </div>
   <div class="charts-row" style="margin-bottom:14px">
-    <div class="chart-card"><h3>📷 CCTV ชำรุด</h3>${cctvBar.length?bar(cctvBar,['#00cfff','#58a6ff','#0099cc']):'<div style="color:var(--text-muted)">ไม่มีข้อมูล</div>'}</div>
-    <div class="chart-card"><h3>💾 HDD ชำรุด</h3>${hddBar.length?bar(hddBar,['#ffa657','#f78166','#ff9500']):'<div style="color:var(--text-muted)">ไม่มีข้อมูล</div>'}</div>
+    <div class="chart-card"><h3>📷 CCTV ชำรุด (คัน)</h3>${cctvBar.length?bar(cctvBar,['#00cfff','#58a6ff','#0099cc','#006699']):'<div style="color:var(--text-muted);font-size:13px">ไม่มีข้อมูล</div>'}</div>
+    <div class="chart-card"><h3>💾 HDD ชำรุด (คัน)</h3>${hddBar.length?bar(hddBar,['#ffa657','#f78166','#ff9500','#cc7700']):'<div style="color:var(--text-muted);font-size:13px">ไม่มีข้อมูล</div>'}</div>
   </div>
   <div class="table-wrapper">
     <div class="table-header"><div class="table-title">📋 รายละเอียดรายอู่</div><input class="table-search" placeholder="ค้นหาอู่..." oninput="searchTable('t-cctv',this.value)"></div>
@@ -777,12 +1044,11 @@ function renderCCTV(data) {
     </div>
     <div class="table-pager"><div class="pager-info" id="info-t-cctv"></div><div class="pager-btns"><button class="pager-btn" id="prev-t-cctv" onclick="changePage('t-cctv',-1)">← ก่อนหน้า</button><button class="pager-btn" id="next-t-cctv" onclick="changePage('t-cctv',1)">ถัดไป →</button></div></div>
   </div>
-  ${repeatList.length?`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-top:14px"><div style="font-size:14px;font-weight:700;margin-bottom:12px">🚨 พบปัญหาซ้ำ <span style="color:var(--accent5)">${repeatList.length} คัน</span></div><div style="display:flex;flex-direction:column;gap:8px">${repeatList.map(it=>'<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid '+(it.type==='HDD'?'var(--accent5)':'#00cfff')+';border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px"><div style="font-size:15px">'+(it.type==='HDD'?'💾':'📷')+'</div><div style="flex:1"><div style="font-weight:700;font-family:IBM Plex Mono,monospace;font-size:13px">'+esc(it.id)+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+esc(it.desc)+' · อู่'+esc(it.garage)+'</div></div><span style="font-size:11px;font-weight:700;color:'+(it.type==='HDD'?'var(--accent5)':'#00cfff')+'">'+it.type+'</span></div>').join('')}</div></div>`:''}`;
+  ${repeatList.length?`<div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-top:14px"><div style="font-size:14px;font-weight:700;margin-bottom:12px">🚨 พบปัญหาซ้ำ — <span style="color:var(--accent5)">${repeatList.length} คัน</span></div><div style="display:flex;flex-direction:column;gap:8px">${repeatList.map(it=>'<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid '+(it.type==='HDD'?'var(--accent5)':'#00cfff')+';border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px"><div style="font-size:15px">'+(it.type==='HDD'?'💾':'📷')+'</div><div style="flex:1"><div style="font-weight:700;font-family:IBM Plex Mono,monospace;font-size:13px">'+esc(it.id)+'</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">'+esc(it.desc)+' · อู่'+esc(it.garage)+'</div></div><span style="font-size:11px;font-weight:700;color:'+(it.type==='HDD'?'var(--accent5)':'#00cfff')+'">'+it.type+'</span></div>').join('')}</div></div>`:''}`;
 }
 
-// ── Issue / ITS / Purchase ──
 function renderIssue(data) {
-  const{headers,rows}=data;
+  const {headers,rows}=data;
   const sk=headers.find(h=>h.includes('สถานะ'))||'สถานะ';
   const tk=headers.find(h=>h.includes('ประเภท'))||'';
   const cnt={};rows.forEach(r=>{const s=r[sk]||'ไม่ระบุ';cnt[s]=(cnt[s]||0)+1;});
@@ -795,7 +1061,7 @@ function renderIssue(data) {
 }
 
 function renderITS(data) {
-  const{headers,rows}=data;
+  const {headers,rows}=data;
   const sk=headers.find(h=>h.includes('สถานะ'))||'สถานะ';
   const tk=headers.find(h=>h.includes('ประเภท'))||'';
   const cnt={};rows.forEach(r=>{const s=r[sk]||'ไม่ระบุ';cnt[s]=(cnt[s]||0)+1;});
@@ -810,7 +1076,7 @@ function renderITS(data) {
 }
 
 function renderPurchase(data) {
-  const{headers,rows}=data;
+  const {headers,rows}=data;
   const sk=headers.find(h=>h.includes('สถานะ'))||'สถานะ';
   const qk=headers.find(h=>h.includes('จำนวน'))||'';
   const STEPS=['จัดทำ PR','รออนุมัติ PR','ออก PO','รับสินค้า'];
@@ -819,7 +1085,7 @@ function renderPurchase(data) {
   rows.forEach(r=>{const s=r[sk]||'';STEPS.forEach(step=>{if(s.includes(step))counts[step]++;});});
   const recv=counts['รับสินค้า'];
   const qty=qk?rows.reduce((a,r)=>a+(parseFloat(r[qk])||0),0):0;
-  const pipeline=STEPS.map((s,i)=>'<div style="flex:1;background:var(--surface);padding:12px;text-align:center;border-right:'+(i<3?'1px solid var(--border)':'none')+'"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">'+s+'</div><div style="font-size:20px;font-weight:700;color:'+sc2[i]+'">'+counts[s]+'</div><div style="font-size:11px;color:var(--text-muted)">'+(rows.length?Math.round(counts[s]/rows.length*100):0)+'%</div></div>').join('');
+  const pipeline=STEPS.map((s,i)=>'<div style="flex:1;background:var(--surface);padding:12px;text-align:center;border-right:'+(i<3?'1px solid var(--border)':'none')+'"><div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.04em">'+s+'</div><div style="font-size:20px;font-weight:700;color:'+sc2[i]+'">'+counts[s]+'</div><div style="font-size:11px;color:var(--text-muted)">'+( rows.length?Math.round(counts[s]/rows.length*100):0 )+'%</div></div>').join('');
   return `<div class="stats-row"><div class="stat-card"><div class="stat-label">รายการทั้งหมด</div><div class="stat-value">${rows.length}</div></div><div class="stat-card"><div class="stat-label">รับสินค้าแล้ว</div><div class="stat-value" style="color:var(--accent2)">${recv}</div></div><div class="stat-card"><div class="stat-label">คงค้าง</div><div class="stat-value" style="color:var(--accent3)">${rows.length-recv}</div></div>${qty?'<div class="stat-card"><div class="stat-label">จำนวนรวม</div><div class="stat-value" style="color:var(--accent)">'+qty+'</div><div class="stat-sub">หน่วย</div></div>':''}</div>
   <div style="display:flex;gap:0;margin-bottom:20px;border-radius:8px;overflow:hidden;border:1px solid var(--border)">${pipeline}</div>
   <div class="charts-row"><div class="chart-card"><h3>สถานะการจัดซื้อ</h3>${bar(STEPS.map(s=>({label:s,val:counts[s]})),sc2)}</div><div class="chart-card"><h3>สัดส่วนความคืบหน้า</h3>${bar([{label:'รับสินค้าแล้ว',val:recv},{label:'ยังไม่รับ',val:rows.length-recv}],['#3fb950','#f78166'])}</div></div>
