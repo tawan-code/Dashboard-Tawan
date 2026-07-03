@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard ความคืบหน้างาน</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #080c10; --surface: #0f1318; --surface2: #151c26;
     --border: #252d38; --text: #f0f6fc; --text-muted: #7d8fa3;
-    --accent: #3d9bff; --accent2: #28d147; --accent3: #ff4d2e;
-    --accent4: #c084fc; --accent5: #ff8c00; --card: #161d27;
+    --accent: #4d9fe8; --accent2: #3ecf8e; --accent3: #ef6a5a;
+    --accent4: #b394e8; --accent5: #e8a355; --card: #161d27;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 15px; }
@@ -263,6 +263,197 @@
   .prog-bar-fill { height: 100%; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #0d1117; transition: width .8s cubic-bezier(.22,1,.36,1); }
   .prog-nums { font-size: 28px; font-weight: 800; line-height: 1; margin-bottom: 6px; }
   .prog-detail { display: flex; gap: 16px; font-size: 12px; flex-wrap: wrap; }
+
+  /* ══════════════════════════════════════════════
+     MSF v2 — exact design system from reference file
+     ══════════════════════════════════════════════ */
+  .msf-v2{
+    --v2-bg-panel: #0F2635;
+    --v2-bg-panel-alt: #123042;
+    --v2-bg-inset: #0A1D28;
+    --v2-border: #1E4356;
+    --v2-border-soft: #163446;
+    --v2-text-primary: #EAF3F7;
+    --v2-text-muted: #7FA0B0;
+    --v2-text-dim: #4E7185;
+    --v2-accent: #22D3C6;
+    --v2-accent-dim: #1A9F96;
+    --v2-status-complete: #3ED98C;
+    --v2-status-complete-bg: rgba(62,217,140,0.14);
+    --v2-status-abnormal: #FF6B6B;
+    --v2-status-abnormal-bg: rgba(255,107,107,0.14);
+    --v2-status-progress: #FFB84D;
+    --v2-status-progress-bg: rgba(255,184,77,0.14);
+    --v2-status-na: #33505F;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-thai: 'Noto Sans Thai', sans-serif;
+    font-family: var(--font-thai);
+    color: var(--v2-text-primary);
+  }
+  .msf-v2 header{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap: wrap; gap:16px;
+    padding-bottom: 22px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--v2-border-soft);
+  }
+  .msf-v2 .eyebrow{
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em;
+    color: var(--v2-accent); text-transform: uppercase; margin-bottom: 8px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .msf-v2 .eyebrow::before{
+    content:''; width:6px; height:6px; border-radius:50%; background: var(--v2-accent);
+    box-shadow: 0 0 0 3px rgba(34,211,198,0.18);
+  }
+  .msf-v2 h1{
+    font-family: var(--font-display); font-weight:600; font-size: 30px;
+    letter-spacing: -0.01em; color: var(--v2-text-primary);
+  }
+  .msf-v2 .subtitle{ color: var(--v2-text-muted); font-size: 13.5px; margin-top:6px; max-width: 560px; line-height:1.6;}
+  .msf-v2 .header-meta{ text-align:right; font-family: var(--font-mono); font-size:11.5px; color: var(--v2-text-dim); }
+  .msf-v2 .header-meta .updated{ color: var(--v2-text-muted); margin-bottom:4px; }
+  .msf-v2 .header-meta .badge{
+    display:inline-flex; align-items:center; gap:6px; margin-top:8px;
+    background: var(--v2-bg-panel-alt); border:1px solid var(--v2-border); border-radius: 20px;
+    padding: 5px 12px; color: var(--v2-status-progress); font-size:11px;
+  }
+  .msf-v2 .header-meta .badge::before{ content:'⚠'; font-size:11px; }
+  .msf-v2 .header-meta .badge.ok{ color: var(--v2-status-complete); border-color: rgba(62,217,140,0.35); }
+  .msf-v2 .header-meta .badge.ok::before{ content:'✓'; }
+
+  .msf-v2 .kpi-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap:14px; margin-bottom: 22px; }
+  .msf-v2 .kpi-card{
+    background: var(--v2-bg-panel); border:1px solid var(--v2-border-soft); border-radius:12px;
+    padding: 18px 20px; position:relative; overflow:hidden;
+  }
+  .msf-v2 .kpi-card::after{
+    content:''; position:absolute; top:0; left:0; width:3px; height:100%;
+    background: var(--kpi-color, var(--v2-accent));
+  }
+  .msf-v2 .kpi-label{ font-size: 11.5px; color: var(--v2-text-muted); margin-bottom:10px; }
+  .msf-v2 .kpi-value{ font-family: var(--font-mono); font-size: 30px; font-weight:600; color: var(--v2-text-primary); line-height:1; }
+  .msf-v2 .kpi-value small{ font-family: var(--font-thai); font-size: 14px; color: var(--v2-text-muted); font-weight:400; margin-left:4px;}
+  .msf-v2 .kpi-sub{ font-size: 11.5px; color: var(--v2-text-dim); margin-top: 8px; }
+
+  .msf-v2 .panel{
+    background: var(--v2-bg-panel); border:1px solid var(--v2-border-soft); border-radius:12px;
+    padding: 20px 22px; margin-bottom: 18px;
+  }
+  .msf-v2 .panel-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px; flex-wrap:wrap; gap:8px;}
+  .msf-v2 .panel-title{ font-family: var(--font-display); font-size:15px; font-weight:600; }
+  .msf-v2 .panel-note{ font-size:11.5px; color: var(--v2-text-dim); font-family: var(--font-mono); }
+
+  .msf-v2 .row-2col{ display:grid; grid-template-columns: 1.4fr 1fr; gap:18px; }
+  @media (max-width: 900px){ .msf-v2 .row-2col{ grid-template-columns: 1fr; } .msf-v2 .kpi-grid{ grid-template-columns: repeat(2,1fr);} }
+
+  .msf-v2 .mmr-size-group{ margin-bottom: 22px; padding-bottom: 20px; border-bottom: 1px solid var(--v2-border-soft); }
+  .msf-v2 .mmr-size-group:last-of-type{ margin-bottom: 0; padding-bottom:0; border-bottom:none; }
+  .msf-v2 .mmr-size-title{
+    display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+    font-size: 12.5px; font-weight:500; color: var(--v2-text-primary); margin-bottom: 14px;
+  }
+  .msf-v2 .mmr-size-count{
+    font-family: var(--font-mono); font-size: 10.5px; color: var(--v2-text-muted);
+    background: var(--v2-bg-inset); border:1px solid var(--v2-border-soft); padding: 2px 9px; border-radius: 20px;
+  }
+  .msf-v2 .mmr-size-hint{ font-size: 10.5px; color: var(--v2-text-dim); font-weight:400; }
+  .msf-v2 .mmr-row{ margin-bottom: 16px; }
+  .msf-v2 .mmr-row:last-child{ margin-bottom:0; }
+  .msf-v2 .mmr-row-label{ display:flex; justify-content:space-between; font-size:12.5px; color: var(--v2-text-muted); margin-bottom:6px; }
+  .msf-v2 .mmr-row-label b{ color: var(--v2-text-primary); font-weight:500; }
+  .msf-v2 .stack-bar{ display:flex; height: 20px; border-radius:5px; overflow:hidden; background: var(--v2-bg-inset); border:1px solid var(--v2-border-soft); }
+  .msf-v2 .seg{ height:100%; }
+  .msf-v2 .seg.complete{ background: var(--v2-status-complete); }
+  .msf-v2 .seg.abnormal{ background: var(--v2-status-abnormal); }
+  .msf-v2 .seg.progress{ background: var(--v2-status-progress); }
+  .msf-v2 .legend{ display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; }
+  .msf-v2 .legend-item{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--v2-text-muted); }
+  .msf-v2 .legend-dot{ width:9px; height:9px; border-radius:2px; }
+
+  .msf-v2 .donut-wrap{ display:flex; flex-direction:column; align-items:center; gap:22px; }
+  .msf-v2 .donut{ width:200px; height:200px; border-radius:50%; flex-shrink:0; position:relative;
+    background: conic-gradient(var(--v2-status-complete) 0% var(--p1), var(--v2-status-progress) var(--p1) 100%); }
+  .msf-v2 .donut::before{ content:''; position:absolute; inset:22px; border-radius:50%; background: var(--v2-bg-panel); }
+  .msf-v2 .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .msf-v2 .donut-center .num{ font-family: var(--font-mono); font-size:32px; font-weight:600; }
+  .msf-v2 .donut-center .lbl{ font-size:13px; color:var(--v2-text-muted); }
+  .msf-v2 .donut.cam{ background: conic-gradient(var(--v2-status-complete) 0% var(--p2a), var(--v2-status-abnormal) var(--p2a) var(--p2b), var(--v2-status-progress) var(--p2b) 100%); }
+  .msf-v2 .donut-section-title{ font-size:11.5px; color:var(--v2-text-muted); margin-bottom:12px; text-transform:uppercase; letter-spacing:.04em; }
+  .msf-v2 .donut-legend{ display:flex; flex-direction:row; justify-content:center; gap:32px; flex-wrap:wrap; width:100%; }
+  .msf-v2 .donut-legend-item{ font-size:11.5px; color:var(--v2-text-muted); text-align:center; }
+  .msf-v2 .donut-legend-item b{ display:block; font-family: var(--font-mono); font-size:19px; font-weight:700; margin-bottom:4px; color: var(--v2-text-primary); }
+
+  .msf-v2 .filters{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .msf-v2 .filters select, .msf-v2 .filters input{
+    background: var(--v2-bg-inset); border:1px solid var(--v2-border); color: var(--v2-text-primary);
+    font-family: var(--font-thai); font-size: 12.5px; padding: 7px 11px; border-radius:7px; outline:none;
+  }
+  .msf-v2 .filters input::placeholder{ color: var(--v2-text-dim); }
+  .msf-v2 .filters select:focus, .msf-v2 .filters input:focus{ border-color: var(--v2-accent); }
+  .msf-v2 .toggle{
+    display:flex; align-items:center; gap:7px; font-size:12px; color:var(--v2-text-muted);
+    background: var(--v2-bg-inset); border:1px solid var(--v2-border); padding:7px 11px; border-radius:7px; cursor:pointer; user-select:none;
+  }
+  .msf-v2 .toggle input{ accent-color: var(--v2-accent); width:13px; height:13px; }
+  .msf-v2 .toggle.active{ color: var(--v2-text-primary); border-color: var(--v2-accent-dim); }
+
+  .msf-v2 .matrix-scroll{ overflow-x:auto; padding-bottom: 6px; margin-top:16px; }
+  .msf-v2 .matrix{ border-collapse: separate; border-spacing: 3px; font-family: var(--font-mono); }
+  .msf-v2 .matrix th{ font-weight:500; font-size:10px; color: var(--v2-text-dim); text-align:center; padding-bottom:4px; }
+  .msf-v2 .matrix th.th-grafana{ font-weight:500; font-size:10px; color: #4E7185; text-align:left; padding-left:12px; transform: translateX(-10px); }
+  .msf-v2 .matrix td.rowhead{
+    text-align:left; padding-right:10px; white-space:nowrap; font-size:12px; color: var(--v2-text-primary);
+    position: sticky; left:0; background: var(--v2-bg-panel); cursor:pointer;
+  }
+  .msf-v2 .matrix td.rowhead .boat-size{ color: var(--v2-text-dim); font-size:10px; margin-left:6px; }
+  .msf-v2 .matrix td.rowhead:hover{ color: var(--v2-accent); }
+  .msf-v2 .matrix td.rowhead.selected{ color: var(--v2-accent); }
+  .msf-v2 .cell{ width:20px; height:20px; border-radius:4px; cursor:pointer; transition: transform 0.08s ease; }
+  .msf-v2 .cell:hover{ transform: scale(1.25); outline:1px solid var(--v2-text-primary); }
+  .msf-v2 .cell.complete{ background: var(--v2-status-complete); }
+  .msf-v2 .cell.abnormal{ background: var(--v2-status-abnormal); }
+  .msf-v2 .cell.progress{ background: var(--v2-status-na); }
+  .msf-v2 .cell.empty{ background: transparent; }
+  .msf-v2 .mmr-dots{ display:flex; gap:3px; margin-left:12px; }
+  .msf-v2 .mmr-dot{ width:7px; height:7px; border-radius:50%; }
+  .msf-v2 .rowhead-inner{ display:flex; align-items:center; }
+
+  .msf-v2 #msf-detail-panel{ display:none; }
+  .msf-v2 #msf-detail-panel.show{ display:block; }
+  .msf-v2 .detail-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:16px; margin-bottom:16px; }
+  .msf-v2 .detail-field{ background: var(--v2-bg-inset); border:1px solid var(--v2-border-soft); border-radius:9px; padding:12px 14px; }
+  .msf-v2 .detail-field .k{ font-size:10.5px; color:var(--v2-text-dim); margin-bottom:5px; text-transform:uppercase; letter-spacing:0.04em; }
+  .msf-v2 .detail-field .v{ font-size:13.5px; color: var(--v2-text-primary); }
+  .msf-v2 .detail-field .v.status-complete{ color: var(--v2-status-complete); }
+  .msf-v2 .detail-field .v.status-abnormal{ color: var(--v2-status-abnormal); }
+  .msf-v2 .detail-field .v.status-progress{ color: var(--v2-status-progress); }
+  .msf-v2 .detail-field .v.status-na{ color: var(--v2-text-dim); }
+  .msf-v2 .detail-remark{ background: var(--v2-bg-inset); border:1px solid var(--v2-border-soft); border-radius:9px; padding:14px 16px; font-size:13px; color: var(--v2-text-muted); line-height:1.7;}
+  .msf-v2 .detail-remark b{ color:var(--v2-text-primary); display:block; margin-bottom:4px; font-size:11px; text-transform:uppercase; letter-spacing:0.04em;}
+  .msf-v2 .detail-cams{ display:grid; grid-template-columns: repeat(14,1fr); gap:5px; margin-top:14px; }
+  .msf-v2 .dc{ aspect-ratio:1; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:9px; font-family:var(--font-mono); color:rgba(0,0,0,0.55); }
+
+  .msf-v2 .empty-state{ text-align:center; padding: 30px 10px; color: var(--v2-text-dim); font-size:12.5px; }
+
+  .msf-v2 table.vtable{ width:100%; border-collapse:collapse; font-size:12.5px; }
+  .msf-v2 table.vtable th{
+    text-align:left; font-size:10.5px; color:var(--v2-text-dim); font-weight:500; text-transform:uppercase;
+    letter-spacing:0.03em; padding: 8px 10px; border-bottom:1px solid var(--v2-border-soft); cursor:pointer; user-select:none;
+  }
+  .msf-v2 table.vtable th:hover{ color: var(--v2-accent); }
+  .msf-v2 table.vtable td{ padding: 9px 10px; border-bottom:1px solid var(--v2-border-soft); color: var(--v2-text-muted); }
+  .msf-v2 table.vtable tr:hover td{ background: var(--v2-bg-inset); color: var(--v2-text-primary); }
+  .msf-v2 table.vtable tr{ cursor:pointer; }
+  .msf-v2 .pill{ display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-family:var(--font-mono); }
+  .msf-v2 .pill.complete{ background: var(--v2-status-complete-bg); color: var(--v2-status-complete); }
+  .msf-v2 .pill.abnormal{ background: var(--v2-status-abnormal-bg); color: var(--v2-status-abnormal); }
+  .msf-v2 .pill.progress{ background: var(--v2-status-progress-bg); color: var(--v2-status-progress); }
+  .msf-v2 .pill.na{ background: rgba(51,80,95,0.35); color: var(--v2-text-dim); }
+  .msf-v2 .remark-cell{ max-width: 220px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .msf-v2 .boat-id-cell{ color: var(--v2-text-primary); font-family: var(--font-mono); font-weight:500; }
+
+  .msf-v2 footer{ margin-top: 24px; text-align:center; font-size:11px; color: var(--v2-text-dim); font-family: var(--font-mono); line-height:1.8; }
+  .msf-v2 footer a{ color: var(--v2-accent); text-decoration:none; }
 </style>
 </head>
 <body>
@@ -362,16 +553,23 @@ function parseCSV(text) {
     ? l => l.split('\t')
     : l => { const r=[]; let c='',q=false; for(const ch of l){if(ch==='"'){q=!q;}else if(ch===','&&!q){r.push(c);c='';}else{c+=ch;}} r.push(c); return r; };
 
-  // Detect meta rows (Start date / End date) before real header row
+  // Detect meta rows (Start date / End date) before real header row.
+  // The "Start date"/"End date" label can sit in any column (not just the
+  // first), and the header row can use either Thai or English column names,
+  // so scan every cell rather than assuming a fixed position.
   const meta = {};
-  let headerLineIdx = 0;
-  for (let i = 0; i < Math.min(6, lines.length); i++) {
+  const HEADER_MARKERS = ['boat id','เบอร์เรือ','ทะเบียน','อู่','tickets no.'];
+  let headerLineIdx = -1;
+  for (let i = 0; i < Math.min(8, lines.length); i++) {
     const cells = splitLine(lines[i]).map(c=>c.trim().replace(/^"|"$/g,''));
-    const k0 = (cells[0]||'').toLowerCase();
-    if (k0.includes('start') && k0.includes('date')) { meta.startDate = cells[1]||cells[2]||''; headerLineIdx = i+1; }
-    else if (k0.includes('end') && k0.includes('date')) { meta.endDate = cells[1]||cells[2]||''; headerLineIdx = i+1; }
-    else if (cells.some(c=>c==='เบอร์เรือ'||c==='ทะเบียน'||c==='อู่'||c==='Tickets No.')) { headerLineIdx = i; break; }
+    const isHeaderRow = cells.some(c=>HEADER_MARKERS.includes(c.trim().toLowerCase()));
+    if (isHeaderRow) { headerLineIdx = i; break; }
+    const startIdx = cells.findIndex(c=>{const cl=c.toLowerCase();return cl.includes('start')&&cl.includes('date');});
+    if (startIdx !== -1) meta.startDate = cells[startIdx+1]||cells[startIdx+2]||'';
+    const endIdx = cells.findIndex(c=>{const cl=c.toLowerCase();return cl.includes('end')&&cl.includes('date');});
+    if (endIdx !== -1) meta.endDate = cells[endIdx+1]||cells[endIdx+2]||'';
   }
+  if (headerLineIdx === -1) headerLineIdx = 0;
 
   const headers = splitLine(lines[headerLineIdx]).map(h => h.trim().replace(/^"|"$/g,''));
   const rows = [];
@@ -593,7 +791,7 @@ function stColor(cl) {
 function stBadge(v) {
   const cl=statusClass(v);
   const c=stColor(cl);
-  const bg=cl==='st-complete'?'rgba(40,209,71,.15)':cl==='st-abnormal'?'rgba(255,77,46,.15)':cl==='st-inprogress'?'rgba(255,140,0,.15)':'rgba(58,69,87,.2)';
+  const bg=cl==='st-complete'?'rgba(62,207,142,.15)':cl==='st-abnormal'?'rgba(239,106,90,.15)':cl==='st-inprogress'?'rgba(232,163,85,.15)':'rgba(58,69,87,.2)';
   const label=cl==='st-complete'?'Complete':cl==='st-abnormal'?'Abnormal':cl==='st-inprogress'?'in progress':v||'—';
   return `<span style="display:inline-block;padding:2px 9px;border-radius:5px;font-size:11px;font-weight:700;color:${c};background:${bg};border:1px solid ${c}55">${label}</span>`;
 }
@@ -629,18 +827,37 @@ function msfCountCams(row) {
 function renderMSF(data) {
   msfRows = data.rows.filter(r=>(r['Boat ID']||r['เบอร์เรือ']||'').trim());
   if(data.meta) window._msfMeta = data.meta;
-  return `<div id="msfPanel"></div>`;
+  return `<div id="msfPanel" class="msf-v2"></div>`;
 }
+
+let msfSelectedBoat = null, msfSortKey = 'no', msfSortDir = 1;
 
 function initMSFPanel() {
   const el = document.getElementById('msfPanel'); if(!el) return;
   el.innerHTML = buildMSFDash();
-  // bind matrix filters
-  document.getElementById('mx-size') && document.getElementById('mx-size').addEventListener('change', renderMatrix);
-  document.getElementById('mx-dock') && document.getElementById('mx-dock').addEventListener('change', renderMatrix);
-  document.getElementById('mx-search') && document.getElementById('mx-search').addEventListener('input', renderMatrix);
-  document.getElementById('mx-prob') && document.getElementById('mx-prob').addEventListener('change', renderMatrix);
-  renderMatrix();
+  const docks = [...new Set(msfRows.map(r=>getDock(r)).filter(Boolean))];
+  const sizes = [...new Set(msfRows.map(r=>getSize(r)).filter(Boolean))];
+  document.getElementById('msf-f-size').innerHTML += sizes.map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
+  document.getElementById('msf-f-loc').innerHTML += docks.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('');
+  ['msf-f-size','msf-f-loc'].forEach(id=>document.getElementById(id).addEventListener('change', msfRefresh));
+  document.getElementById('msf-f-search').addEventListener('input', msfRefresh);
+  document.getElementById('msf-f-issues').addEventListener('click', ()=>{
+    const cb = document.getElementById('msf-f-issues').querySelector('input');
+    setTimeout(()=>{ document.getElementById('msf-f-issues').classList.toggle('active', cb.checked); msfRefresh(); }, 0);
+  });
+  document.getElementById('msf-detail-close').addEventListener('click', ()=>{
+    document.getElementById('msf-detail-panel').classList.remove('show');
+    msfSelectedBoat = null;
+    msfRenderMatrix();
+  });
+  document.querySelectorAll('#msf-vtable thead th').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const k = th.dataset.k;
+      if(msfSortKey===k) msfSortDir *= -1; else { msfSortKey=k; msfSortDir=1; }
+      msfRenderTable();
+    });
+  });
+  msfRefresh();
 }
 
 function getBoatId(r){ return r['Boat ID']||r['เบอร์เรือ']||''; }
@@ -649,318 +866,360 @@ function getSize(r)  { return r['ขนาดเรือ']||''; }
 function getNVR(r)   { return (r['NVR Serial No.']||r[' NVR S/N ']||r['NVR S/N']||'').trim(); }
 function getChecked(r){ const v=(r['ตรวจสอบแล้ว']||'').toUpperCase(); return v==='TRUE'||v==='✓'||v==='ครบ'; }
 
+// v2 class helpers — map our internal status classes to the reference design's class names
+function v2Cls(v){
+  const cl = statusClass(v);
+  if(cl==='st-complete') return 'complete';
+  if(cl==='st-abnormal') return 'abnormal';
+  if(cl==='st-inprogress') return 'progress';
+  return 'empty';
+}
+function v2PillCls(v){
+  const cl = statusClass(v);
+  if(cl==='st-complete') return 'complete';
+  if(cl==='st-abnormal') return 'abnormal';
+  if(!v || v==='-') return 'na';
+  return 'progress';
+}
+function v2Color(cls){
+  if(cls==='complete') return 'var(--v2-status-complete)';
+  if(cls==='abnormal') return 'var(--v2-status-abnormal)';
+  if(cls==='empty') return 'var(--v2-status-na)';
+  return 'var(--v2-status-progress)';
+}
+function isMMRComplete(r){
+  if(getSize(r).includes('19')) return statusClass(r['Data Box']||'')==='st-complete' && statusClass(r['Grafana']||'')==='st-complete';
+  return statusClass(r['Mini PC']||'')==='st-complete' && statusClass(r['Data Box']||'')==='st-complete' && statusClass(r['Grafana']||'')==='st-complete';
+}
+
 function buildMSFDash() {
   const rows = msfRows;
   const total = rows.length;
-  const sz24  = rows.filter(r=>getSize(r).includes('24'));
-  const sz19  = rows.filter(r=>getSize(r).includes('19'));
-  const checked = rows.filter(r=>getChecked(r)).length;
+  const sz24 = rows.filter(r=>getSize(r).includes('24'));
+  const sz19 = rows.filter(r=>getSize(r).includes('19'));
 
-  // MMR totals per equip
-  function equipStats(key) {
-    return {
-      comp: rows.filter(r=>statusClass(r[key]||'')==='st-complete').length,
-      abn:  rows.filter(r=>statusClass(r[key]||'')==='st-abnormal').length,
-      prog: rows.filter(r=>statusClass(r[key]||'')==='st-inprogress').length,
-      none: rows.filter(r=>statusClass(r[key]||'')==='st-none').length,
-    };
-  }
-  const mmrKeys = ['Mini PC','Data Box','Grafana'];
-  const mmrStats = {};
-  mmrKeys.forEach(k=>{ mmrStats[k]=equipStats(k); });
+  const mmrFull = rows.filter(isMMRComplete).length;
+  const mmrFull24 = sz24.filter(isMMRComplete).length;
+  const mmrFull19 = sz19.filter(isMMRComplete).length;
+  const checklistDone = rows.filter(getChecked).length;
 
-  // CCTV totals
-  let camOk=0,camBad=0,camWait=0,camTotal=0;
-  rows.forEach(r=>{ const c=msfCountCams(r); camOk+=c.ok; camBad+=c.bad; camWait+=c.wait; camTotal+=c.total; });
-  const camPct = camTotal>0?Math.round(camOk/camTotal*100):0;
+  let camNormal=0, camAbnormal=0, camTotal=0;
+  rows.forEach(r=>{ const c=msfCountCams(r); camNormal+=c.ok; camAbnormal+=c.bad; camTotal+=c.total; });
 
-  // Grafana complete for hero
-  const grafComp24 = sz24.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
-  const grafComp19 = sz19.filter(r=>statusClass(r['Grafana']||'')==='st-complete').length;
+  const mmrTotalItems = sz24.length*3 + sz19.length*2;
+  const mmrCompleteItems = sz24.reduce((s,r)=>s+['Mini PC','Data Box','Grafana'].filter(f=>statusClass(r[f]||'')==='st-complete').length,0)
+    + sz19.reduce((s,r)=>s+['Data Box','Grafana'].filter(f=>statusClass(r[f]||'')==='st-complete').length,0);
+  const camCompleteItems = camNormal;
+  const camTotalItems = camTotal;
+  const projectTotalItems = mmrTotalItems + camTotalItems;
+  const projectCompleteItems = mmrCompleteItems + camCompleteItems;
+  const projectProgressPct = projectTotalItems===0 ? 0 : Math.round(projectCompleteItems/projectTotalItems*100);
 
   // Date meta
   const meta = window._msfMeta||{};
   const parseThDate = s=>{ if(!s||s==='-')return null; const[d,m,y]=s.split('/').map(Number); if(!d||!m||!y)return null; return new Date((y<100?y+2500:y)-543,m-1,d); };
   const sd=parseThDate(meta.startDate), ed=parseThDate(meta.endDate), today=new Date();
-  const isDone=ed&&today>=ed, isInProg=sd&&ed&&today>=sd&&!isDone;
-  const tPct=sd&&ed?Math.min(Math.round((today-sd)/(ed-sd)*100),100):null;
+  const isDone=sd&&ed&&today>=ed, isInProg=sd&&ed&&today>=sd&&!isDone;
   const dateRange=meta.startDate&&meta.endDate?`${meta.startDate} – ${meta.endDate}`:'';
 
-  // stacked bar builder
-  function stackBar(comp,abn,prog,tot,noneLabel='') {
-    const pc=tot?Math.round(comp/tot*100):0;
-    const pa=tot?Math.round(abn/tot*100):0;
-    const pp=tot?Math.round(prog/tot*100):0;
-    const pn=100-pc-pa-pp;
-    return `
-    <div style="height:10px;background:var(--card);border-radius:5px;overflow:hidden;display:flex;margin-bottom:5px">
-      <div style="width:${pc}%;background:var(--accent2)" title="Complete ${comp}"></div>
-      <div style="width:${pa}%;background:var(--accent3)" title="Abnormal ${abn}"></div>
-      <div style="width:${pp}%;background:var(--accent5)" title="In progress ${prog}"></div>
-      ${pn>0?`<div style="width:${pn}%;background:#2a3445" title="${noneLabel||'ไม่มีข้อมูล'}"></div>`:''}
+  const kpis = [
+    {label:'จำนวนเรือทั้งหมด', value: total, unit:'ลำ', color:'var(--v2-accent)', sub:`24 เมตร ${sz24.length} ลำ · 19 เมตร ${sz19.length} ลำ`},
+    {label:'ระบบ MMR Grafana', value: mmrFull, unit:`/ ${total} ลำ`, color:'var(--v2-status-complete)', sub:`24 เมตร ${mmrFull24}/${sz24.length} ลำ · 19 เมตร ${mmrFull19}/${sz19.length} ลำ`},
+    {label:'ดำเนินการตรวจสอบแล้ว', value: checklistDone, unit:`/ ${total} ลำ`, color:'var(--v2-status-progress)', sub:`เหลือ ${total-checklistDone} ลำที่ยังไม่ครบ`},
+    {label:'ความคืบหน้าโครงการโดยรวม', value: projectProgressPct, unit:'%', color:'var(--v2-status-abnormal)', sub:`เสร็จสมบูรณ์ ${projectCompleteItems} / ${projectTotalItems} รายการ · MMR ${mmrCompleteItems}/${mmrTotalItems} · CCTV ${camCompleteItems}/${camTotalItems}`},
+  ];
+  const kpiHtml = kpis.map(k => `
+    <div class="kpi-card" style="--kpi-color:${k.color}">
+      <div class="kpi-label">${esc(k.label)}</div>
+      <div class="kpi-value">${k.value}<small>${esc(k.unit)}</small></div>
+      <div class="kpi-sub">${k.sub}</div>
+    </div>`).join('');
+
+  function renderMMRGroup(subset, fields) {
+    const n = subset.length;
+    return fields.map(f=>{
+      const c = subset.filter(r=>statusClass(r[f.k]||'')==='st-complete').length;
+      const a = subset.filter(r=>statusClass(r[f.k]||'')==='st-abnormal').length;
+      const p = Math.max(0, n - c - a);
+      return `
+      <div class="mmr-row">
+        <div class="mmr-row-label"><b>${esc(f.label)}</b><span>${c} Complete · ${a} Abnormal · ${p} In progress</span></div>
+        <div class="stack-bar">
+          <div class="seg complete" style="width:${n?c/n*100:0}%"></div>
+          <div class="seg abnormal" style="width:${n?a/n*100:0}%"></div>
+          <div class="seg progress" style="width:${n?p/n*100:0}%"></div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  const p2a = camTotal ? Math.round(camNormal/camTotal*100) : 0;
+  const p2b = camTotal ? Math.round((camNormal+camAbnormal)/camTotal*100) : 0;
+  const camPending = camTotal - camNormal - camAbnormal;
+
+  return `
+  <header>
+    <div>
+      <div class="eyebrow">ITS · E-Ferry Operations</div>
+      <h1>ความคืบหน้างาน MMR Grafana &amp; CCTV</h1>
+      <div class="subtitle">ภาพรวมความพร้อมของระบบ MMR Grafana และ CCTV Hikvision ครบทั้ง ${total} ลำ อัปเดตจากข้อมูลตรวจสอบล่าสุด</div>
     </div>
-    <div style="display:flex;gap:10px;font-size:11px;flex-wrap:wrap">
-      <span style="color:var(--accent2)">■ Complete ${comp}</span>
-      ${abn>0?`<span style="color:var(--accent3)">■ Abnormal ${abn}</span>`:''}
-      ${prog>0?`<span style="color:var(--accent5)">■ In progress ${prog}</span>`:''}
-      ${pn>0&&noneLabel?`<span style="color:#3a4557">■ ${noneLabel}</span>`:''}
-    </div>`;
-  }
+    <div class="header-meta">
+      <div>2 VESSELS · 19M &amp; 24M CLASS</div>
+      ${dateRange?`<div>ระยะเวลาโครงการ: ${esc(dateRange)}</div>`:''}
+      ${isDone?`<div class="badge ok">แก้ไขวันที่โครงการเรียบร้อยแล้ว</div>`:isInProg?`<div class="badge">โครงการกำลังดำเนินการ</div>`:''}
+    </div>
+  </header>
 
-  // donut SVG
-  function donut(ok,bad,wait,tot) {
-    const r=54,cx=64,cy=64,stroke=14;
-    const circ=2*Math.PI*r;
-    const pOk=tot?ok/tot:0, pBad=tot?bad/tot:0, pWait=tot?wait/tot:0;
-    const dOk=pOk*circ, dBad=pBad*circ, dWait=pWait*circ, dRest=circ-dOk-dBad-dWait;
-    let offset=circ*0.25; // start top
-    const arc=(d,color)=>{ const s=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-dasharray="${d} ${circ-d}" stroke-dashoffset="${-offset+circ}" style="transition:stroke-dasharray .8s"/>`; offset-=d; return s; };
-    const pct=tot>0?Math.round(pOk*100):0;
-    return `<svg width="128" height="128" viewBox="0 0 128 128">
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#1e2a38" stroke-width="${stroke}"/>
-      ${arc(dOk,'#28d147')}${arc(dBad,'#ff4d2e')}${arc(dWait,'#ff8c00')}
-      <text x="${cx}" y="${cy-6}" text-anchor="middle" fill="#f0f6fc" font-size="20" font-weight="800" font-family="IBM Plex Mono,monospace">${pct}%</text>
-      <text x="${cx}" y="${cy+12}" text-anchor="middle" fill="#7d8fa3" font-size="11" font-family="Sarabun,sans-serif">ปกติ</text>
-    </svg>`;
-  }
+  <div class="kpi-grid">${kpiHtml}</div>
 
-  // table rows
-  const trs = rows.map((r,i)=>{
+  <div class="row-2col">
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">สถานะระบบ MMR Grafana รายอุปกรณ์ · แยกตามขนาดเรือ</div>
+        <div class="panel-note">${total} VESSELS</div>
+      </div>
+      <div class="mmr-size-group">
+        <div class="mmr-size-title">เรือ 24 เมตร <span class="mmr-size-count">${sz24.length} ลำ</span></div>
+        <div>${renderMMRGroup(sz24, [{k:'Mini PC', label:'Mini PC'}, {k:'Data Box', label:'Data Box'}, {k:'Grafana', label:'Grafana'}])}</div>
+      </div>
+      <div class="mmr-size-group">
+        <div class="mmr-size-title">
+          เรือ 19 เมตร <span class="mmr-size-count">${sz19.length} ลำ</span>
+          <span class="mmr-size-hint">ไม่มีอุปกรณ์ Mini PC — นับว่า Complete เมื่อ Data Box และ Grafana ปกติ</span>
+        </div>
+        <div>${renderMMRGroup(sz19, [{k:'Data Box', label:'Data Box'}, {k:'Grafana', label:'Grafana'}])}</div>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--v2-status-complete)"></span>Complete</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--v2-status-abnormal)"></span>Abnormal</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--v2-status-progress)"></span>In progress</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--v2-status-na)"></span>ไม่มีอุปกรณ์ (19 เมตร)</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <div class="panel-title">CCTV Checklist</div>
+        <div class="panel-note">ตรวจครบ / ยังไม่ครบ</div>
+      </div>
+      <div class="donut-section-title">กล้อง CCTV รวมทั้งหมด (24ม.=13 ตัว, 19ม.=14 ตัว · รวม ${camTotal} ตัว)</div>
+      <div class="donut-wrap">
+        <div class="donut cam" style="--p2a:${p2a}%;--p2b:${p2b}%">
+          <div class="donut-center"><div class="num">${p2a}%</div><div class="lbl">ปกติ</div></div>
+        </div>
+        <div class="donut-legend">
+          <div class="donut-legend-item"><b>${camNormal} ตัว</b>กล้องปกติ</div>
+          <div class="donut-legend-item"><b style="color:var(--v2-status-abnormal)">${camAbnormal} ตัว</b>กล้องผิดปกติ</div>
+          <div class="donut-legend-item"><b style="color:var(--v2-status-progress)">${camPending} ตัว</b>ยังไม่ตรวจสอบ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <div class="panel-title">MMR Grafana &amp; CCTV Health Matrix</div>
+        <div class="panel-note" style="margin-top:3px;">แต่ละแถว = เรือ 1 ลำ · คอลัมน์ Grafana = สถานะ Mini PC/Data Box/Grafana · คอลัมน์ 01-14 = กล้อง CAM-01 ถึง CAM-14 · คลิกชื่อเรือเพื่อดูรายละเอียด</div>
+      </div>
+      <div class="filters">
+        <select id="msf-f-size"><option value="all">ทุกขนาดเรือ</option></select>
+        <select id="msf-f-loc"><option value="all">ทุกท่าจอด</option></select>
+        <input id="msf-f-search" type="text" placeholder="ค้นหา Boat ID...">
+        <label class="toggle" id="msf-f-issues"><input type="checkbox">แสดงเฉพาะที่มีปัญหา</label>
+      </div>
+    </div>
+    <div class="matrix-scroll"><table class="matrix" id="msf-matrix"></table></div>
+  </div>
+
+  <div class="panel" id="msf-detail-panel">
+    <div class="panel-head">
+      <div class="panel-title" id="msf-detail-title">รายละเอียดเรือ</div>
+      <div class="panel-note" id="msf-detail-close" style="cursor:pointer;">✕ ปิด</div>
+    </div>
+    <div class="detail-grid" id="msf-detail-grid"></div>
+    <div class="detail-remark" id="msf-detail-remark-mmr"></div>
+    <div style="height:10px;"></div>
+    <div class="detail-remark" id="msf-detail-remark-cctv"></div>
+    <div class="detail-cams" id="msf-detail-cams"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-title">รายการเรือทั้งหมด</div>
+      <div class="panel-note">คลิกหัวคอลัมน์เพื่อจัดเรียง</div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="vtable" id="msf-vtable">
+        <thead><tr>
+          <th data-k="no">No</th>
+          <th data-k="id">Boat ID</th>
+          <th data-k="size">ขนาด</th>
+          <th data-k="dock">ท่าจอด</th>
+          <th data-k="mp">Mini PC</th>
+          <th data-k="db">Data Box</th>
+          <th data-k="gf">Grafana</th>
+          <th data-k="ok">กล้องปกติ</th>
+          <th data-k="bad">กล้องผิดปกติ</th>
+          <th data-k="chk">Checklist</th>
+          <th data-k="rg">Remark MMR/Grafana</th>
+          <th data-k="rc">Remark CCTV</th>
+        </tr></thead>
+        <tbody id="msf-vtable-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    ที่มา: ข้อมูลตรวจสอบเรือ MSF &nbsp;·&nbsp; E-Ferry ITS Fleet Status Board<br>
+    หมายเหตุ: Mini PC = "ไม่มีอุปกรณ์" หมายถึงเรือขนาด 19 เมตรไม่มีการติดตั้งอุปกรณ์ตามข้อมูลต้นฉบับ
+  </footer>`;
+}
+
+function msfGetFiltered() {
+  const size = (document.getElementById('msf-f-size')||{}).value||'all';
+  const loc = (document.getElementById('msf-f-loc')||{}).value||'all';
+  const q = ((document.getElementById('msf-f-search')||{}).value||'').trim().toLowerCase();
+  const issuesOnly = document.getElementById('msf-f-issues') ? document.getElementById('msf-f-issues').querySelector('input').checked : false;
+  return msfRows.filter(r=>{
+    if(size!=='all' && getSize(r)!==size) return false;
+    if(loc!=='all' && getDock(r)!==loc) return false;
+    if(q && !getBoatId(r).toLowerCase().includes(q)) return false;
+    if(issuesOnly){
+      const c = msfCountCams(r);
+      const hasIssue = c.bad>0 || !getChecked(r) || statusClass(r['Mini PC']||'')==='st-abnormal' || statusClass(r['Data Box']||'')==='st-abnormal' || statusClass(r['Grafana']||'')==='st-abnormal';
+      if(!hasIssue) return false;
+    }
+    return true;
+  });
+}
+
+function msfRenderMatrix() {
+  const rows = msfGetFiltered();
+  const el = document.getElementById('msf-matrix'); if(!el) return;
+  if(!rows.length){
+    el.innerHTML = '';
+    el.parentElement.innerHTML = '<div class="empty-state">ไม่พบเรือที่ตรงกับตัวกรอง</div>';
+    return;
+  }
+  const head = `<tr><th></th><th class="th-grafana">Grafana</th>${Array.from({length:14},(_,i)=>`<th>${String(i+1).padStart(2,'0')}</th>`).join('')}</tr>`;
+  const body = rows.map(r=>{
+    const id = getBoatId(r), sz = getSize(r);
+    const maxCam = camMaxBySize(r);
+    const cells = Array.from({length:14},(_,i)=>{
+      if(i>=maxCam) return `<td><div class="cell empty"></div></td>`;
+      const key='CAM-'+String(i+1).padStart(2,'0');
+      const v=r[key]||'';
+      return `<td><div class="cell ${v2Cls(v)}" title="${key}: ${esc(v||'-')}"></div></td>`;
+    }).join('');
+    const mmrFields = sz.includes('19') ? ['Data Box','Grafana'] : ['Mini PC','Data Box','Grafana'];
+    const mmrDots = mmrFields.map(f=>{
+      const cls = v2Cls(r[f]||'');
+      return `<span class="mmr-dot" style="background:${v2Color(cls)}" title="${esc(f)}: ${esc(r[f]||'-')}"></span>`;
+    }).join('');
+    const sel = msfSelectedBoat===id ? 'selected' : '';
+    const idAttr = esc(id).replace(/'/g,"&#39;");
+    return `<tr>
+      <td class="rowhead ${sel}" data-boat='${idAttr}'><div class="rowhead-inner">${esc(id)}<span class="boat-size">${sz.replace(' เมตร','ม')}</span></div></td>
+      <td class="rowhead" data-boat='${idAttr}'><div class="mmr-dots">${mmrDots}</div></td>
+      ${cells}
+    </tr>`;
+  }).join('');
+  el.innerHTML = head + body;
+  el.parentElement.querySelectorAll('.rowhead').forEach(td=>{
+    td.addEventListener('click', ()=>{
+      msfSelectedBoat = td.dataset.boat;
+      msfShowDetail(msfSelectedBoat);
+      msfRenderMatrix();
+    });
+  });
+}
+
+function msfShowDetail(boatId) {
+  const r = msfRows.find(x=>getBoatId(x)===boatId);
+  if(!r) return;
+  const panel = document.getElementById('msf-detail-panel');
+  panel.classList.add('show');
+  const sz = getSize(r), dk = getDock(r);
+  document.getElementById('msf-detail-title').textContent = `รายละเอียด — ${boatId} (${sz} · ${dk})`;
+  const is19 = sz.includes('19');
+  const mpVal = r['Mini PC']||'', mpDisplay = is19 ? 'ไม่มีอุปกรณ์' : (mpVal||'-');
+  const mpCls = is19 ? 'na' : v2PillCls(mpVal);
+  const fields = [
+    {k:'Mini PC', v:mpVal, display:mpDisplay, cls:mpCls},
+    {k:'Data Box', v:r['Data Box']||'', display:r['Data Box']||'-', cls:v2PillCls(r['Data Box']||'')},
+    {k:'Grafana', v:r['Grafana']||'', display:r['Grafana']||'-', cls:v2PillCls(r['Grafana']||'')},
+    {k:'NVR Config', v:r['NVR Config']||r['สถานะ NVR']||'', display:r['NVR Config']||r['สถานะ NVR']||'-', cls:v2PillCls(r['NVR Config']||r['สถานะ NVR']||'')},
+  ];
+  document.getElementById('msf-detail-grid').innerHTML = fields.map(f=>
+    `<div class="detail-field"><div class="k">${esc(f.k)}</div><div class="v status-${f.cls==='na'?'na':f.cls}">${esc(f.display)}</div></div>`
+  ).join('');
+  const rmrG = (r['หมายเหตุ MMR']||r['Remark (Grafana)']||'').trim();
+  const rmrC = (r['หมายเหตุ CCTV']||r['Remark (CCTV)']||'').trim();
+  const nvrSn = getNVR(r)||'-';
+  const c = msfCountCams(r);
+  document.getElementById('msf-detail-remark-mmr').innerHTML = `<b>Remark — MMR Grafana</b>${esc(rmrG || 'ไม่มีหมายเหตุ')}`;
+  document.getElementById('msf-detail-remark-cctv').innerHTML = `<b>Remark — CCTV (NVR S/N: ${esc(nvrSn)})</b>${esc(rmrC || 'ไม่มีหมายเหตุ')} &nbsp;·&nbsp; กล้องปกติ ${c.ok} / ผิดปกติ ${c.bad}`;
+  const maxCam = camMaxBySize(r);
+  document.getElementById('msf-detail-cams').innerHTML = Array.from({length:14},(_,i)=>{
+    const label = String(i+1).padStart(2,'0');
+    if(i>=maxCam) return `<div class="dc" style="background:transparent"></div>`;
+    const key='CAM-'+label;
+    const v = r[key]||'';
+    return `<div class="dc" style="background:${v2Color(v2Cls(v))}" title="${key}: ${esc(v||'-')}">${label}</div>`;
+  }).join('');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function msfRenderTable() {
+  let rows = msfGetFiltered().slice();
+  const keyMap = {
+    no:(r,i)=>i, id:getBoatId, size:getSize, dock:getDock,
+    mp:r=>r['Mini PC']||'', db:r=>r['Data Box']||'', gf:r=>r['Grafana']||'',
+    ok:r=>msfCountCams(r).ok, bad:r=>msfCountCams(r).bad, chk:r=>getChecked(r)?1:0,
+    rg:r=>(r['หมายเหตุ MMR']||r['Remark (Grafana)']||''), rc:r=>(r['หมายเหตุ CCTV']||r['Remark (CCTV)']||''),
+  };
+  const idx = new Map(msfRows.map((r,i)=>[r,i]));
+  rows.sort((a,b)=>{
+    const fn = keyMap[msfSortKey]||keyMap.no;
+    let va=fn(a, idx.get(a)), vb=fn(b, idx.get(b));
+    if(typeof va==='string') va=va.toLowerCase();
+    if(typeof vb==='string') vb=vb.toLowerCase();
+    if(va<vb) return -1*msfSortDir;
+    if(va>vb) return 1*msfSortDir;
+    return 0;
+  });
+  document.getElementById('msf-vtable-body').innerHTML = rows.map((r)=>{
     const id=getBoatId(r), sz=getSize(r), dk=getDock(r);
     const mp=r['Mini PC']||'', db=r['Data Box']||'', gf=r['Grafana']||'';
     const c=msfCountCams(r);
     const chk=getChecked(r);
     const rmrG=(r['หมายเหตุ MMR']||r['Remark (Grafana)']||'').trim();
     const rmrC=(r['หมายเหตุ CCTV']||r['Remark (CCTV)']||'').trim();
-    return `<tr>
-      <td style="color:var(--text-muted);font-family:IBM Plex Mono,monospace;font-size:11px">${i+1}</td>
-      <td style="font-weight:700;white-space:nowrap">${esc(id)}</td>
-      <td style="font-size:11px;color:var(--text-muted)">${sz.replace(' เมตร','м')}</td>
-      <td style="font-size:11px">${esc(dk)}</td>
-      <td>${stBadge(mp)}</td>
-      <td>${stBadge(db)}</td>
-      <td>${stBadge(gf)}</td>
-      <td style="font-family:IBM Plex Mono,monospace;font-size:12px;color:${c.bad>0?'var(--accent3)':'var(--accent2)'}">${c.ok}</td>
-      <td style="font-family:IBM Plex Mono,monospace;font-size:12px;color:${c.bad>0?'var(--accent3)':'var(--text-muted)'}">${c.bad}</td>
-      <td><span style="padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;${chk?'background:rgba(40,209,71,.15);color:var(--accent2)':'background:rgba(255,77,46,.12);color:var(--accent3)'}">${chk?'ครบ':'ไม่ครบ'}</span></td>
-      <td style="font-size:11px;color:var(--text-muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(rmrG)}">${rmrG||'—'}</td>
-      <td style="font-size:11px;color:var(--text-muted);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${esc(rmrC)}">${rmrC||'—'}</td>
+    const is19 = sz.includes('19');
+    const idAttr = esc(id).replace(/'/g,"&#39;");
+    return `<tr data-boat='${idAttr}'>
+      <td>${esc(String(msfRows.indexOf(r)+1))}</td>
+      <td class="boat-id-cell">${esc(id)}</td>
+      <td>${esc(sz)}</td>
+      <td>${esc(dk)}</td>
+      <td><span class="pill ${is19?'na':v2PillCls(mp)}">${is19?'ไม่มีอุปกรณ์':esc(mp||'-')}</span></td>
+      <td><span class="pill ${v2PillCls(db)}">${esc(db||'-')}</span></td>
+      <td><span class="pill ${v2PillCls(gf)}">${esc(gf||'-')}</span></td>
+      <td>${c.ok}</td>
+      <td>${c.bad}</td>
+      <td>${chk?'<span class="pill complete">ครบ</span>':'<span class="pill progress">ไม่ครบ</span>'}</td>
+      <td class="remark-cell" title="${esc(rmrG)}">${esc(rmrG || '—')}</td>
+      <td class="remark-cell" title="${esc(rmrC)}">${esc(rmrC || '—')}</td>
     </tr>`;
   }).join('');
-
-  // dock options
-  const docks = [...new Set(rows.map(r=>getDock(r)).filter(Boolean))];
-  const dockOpts = docks.map(d=>`<option value="${esc(d)}">${esc(d)}</option>`).join('');
-
-  return `
-  <!-- ══ HERO ══ -->
-  <div style="background:linear-gradient(135deg,#0a1628 0%,#0d1f3c 100%);border:1px solid var(--border);border-radius:14px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden">
-    <div style="position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle,rgba(61,155,255,.06) 0%,transparent 70%);pointer-events:none"></div>
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
-      <div>
-        <div style="font-size:11px;font-weight:600;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">● ITS · E-FERRY OPERATIONS</div>
-        <h1 style="font-size:28px;font-weight:800;color:var(--text);margin-bottom:6px">ความคืบหน้างาน MMR Grafana &amp; CCTV</h1>
-        <p style="font-size:13px;color:var(--text-muted)">ภาพรวมความพร้อมของระบบ MMR Grafana และ CCTV Hikvision ครบทั้ง ${total} ลำ อัปเดตจากข้อมูลตรวจสอบล่าสุด</p>
-      </div>
-      <div style="text-align:right">
-        <div style="font-size:12px;font-weight:600;color:var(--text-muted)">2 VESSELS · 19M &amp; 24M CLASS</div>
-        ${dateRange?`<div style="font-size:12px;color:var(--text-muted);margin-top:2px">ระยะเวลาโครงการ: ${dateRange}</div>`:''}
-        ${tPct!==null?`<div style="margin-top:8px;display:inline-flex;align-items:center;gap:7px;background:rgba(40,209,71,.12);border:1px solid rgba(40,209,71,.3);border-radius:6px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--accent2)">${isDone?'✅ แก้ไขวันที่โครงการเรียบร้อยแล้ว':isInProg?`<span style="width:7px;height:7px;border-radius:50%;background:var(--accent2);animation:pulse-dot 1.4s infinite"></span>In Progress ${tPct}%`:''}</div>`:''}</div>
-    </div>
-    <!-- 4 stat cards -->
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px">
-      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:16px 18px">
-        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">จำนวนเรือทั้งหมด</div>
-        <div style="font-size:30px;font-weight:800;color:var(--text);font-family:IBM Plex Mono,monospace">${total} <span style="font-size:16px;font-weight:400">ลำ</span></div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">24 เมตร ${sz24.length} ลำ · 19 เมตร ${sz19.length} ลำ</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent5);border-radius:10px;padding:16px 18px">
-        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ระบบ MMR Grafana</div>
-        <div style="font-size:30px;font-weight:800;color:var(--accent5);font-family:IBM Plex Mono,monospace">${mmrStats['Grafana'].comp} <span style="font-size:14px;font-weight:400;color:var(--text-muted)">/ ${total} ลำ</span></div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">24 เมตร ${grafComp24}/${sz24.length} ลำ · 19 เมตร ${grafComp19}/${sz19.length} ลำ</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent2);border-radius:10px;padding:16px 18px">
-        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ดำเนินการตรวจสอบแล้ว</div>
-        <div style="font-size:30px;font-weight:800;color:var(--accent2);font-family:IBM Plex Mono,monospace">${checked} <span style="font-size:14px;font-weight:400;color:var(--text-muted)">/ ${total} ลำ</span></div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">เหลือ ${total-checked} ลำที่ยังไม่ครบ</div>
-      </div>
-      <div style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-left:2px solid var(--accent3);border-radius:10px;padding:16px 18px">
-        <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;font-weight:600;text-transform:uppercase">ความคืบหน้าโครงการโดยรวม</div>
-        <div style="font-size:30px;font-weight:800;color:var(--accent3);font-family:IBM Plex Mono,monospace">${camPct} <span style="font-size:16px;font-weight:400">%</span></div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:4px">กล้องปกติ ${camOk}/${camTotal} · CCTV ผิดปกติ ${camBad}</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ MMR BARS + CCTV DONUT ══ -->
-  <div style="display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:20px">
-    <!-- MMR stacked bars -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px">
-      <div style="font-size:14px;font-weight:700;margin-bottom:4px">สถานะระบบ MMR Grafana รายอุปกรณ์ · แยกตามขนาดเรือ</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-bottom:18px">${total} VESSELS</div>
-      <!-- 24m -->
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:8px">
-        เรือ 24 เมตร <span style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 8px;font-size:11px;color:var(--text-muted)">${sz24.length} ลำ</span>
-      </div>
-      ${mmrKeys.map(k=>{
-        const s24={comp:sz24.filter(r=>statusClass(r[k]||'')==='st-complete').length, abn:sz24.filter(r=>statusClass(r[k]||'')==='st-abnormal').length, prog:sz24.filter(r=>statusClass(r[k]||'')==='st-inprogress').length};
-        return `<div style="margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-            <span style="font-size:12px;font-weight:600">${esc(k)}</span>
-            <span style="font-size:11px;color:var(--text-muted)">${s24.comp} Complete · ${s24.abn} Abnormal · ${s24.prog} In progress</span>
-          </div>
-          ${stackBar(s24.comp,s24.abn,s24.prog,sz24.length)}
-        </div>`;
-      }).join('')}
-      <!-- 19m -->
-      <div style="font-size:12px;font-weight:700;color:var(--text);margin:18px 0 4px;display:flex;align-items:center;gap:8px">
-        เรือ 19 เมตร <span style="background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 8px;font-size:11px;color:var(--text-muted)">${sz19.length} ลำ</span>
-        <span style="font-size:11px;color:var(--text-muted);font-weight:400">ไม่มีอุปกรณ์ Mini PC — นับว่า Complete เมื่อ Data Box และ Grafana ปกติ</span>
-      </div>
-      ${['Data Box','Grafana'].map(k=>{
-        const s19={comp:sz19.filter(r=>statusClass(r[k]||'')==='st-complete').length, abn:sz19.filter(r=>statusClass(r[k]||'')==='st-abnormal').length, prog:sz19.filter(r=>statusClass(r[k]||'')==='st-inprogress').length};
-        return `<div style="margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
-            <span style="font-size:12px;font-weight:600">${esc(k)}</span>
-            <span style="font-size:11px;color:var(--text-muted)">${s19.comp} Complete · ${s19.abn} Abnormal · ${s19.prog} In progress</span>
-          </div>
-          ${stackBar(s19.comp,s19.abn,s19.prog,sz19.length,'ไม่มีอุปกรณ์ (19 เมตร)')}
-        </div>`;
-      }).join('')}
-      <!-- legend -->
-      <div style="display:flex;gap:16px;font-size:11px;color:var(--text-muted);margin-top:6px;flex-wrap:wrap">
-        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent2);border-radius:2px;margin-right:4px;vertical-align:middle"></span>Complete</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent3);border-radius:2px;margin-right:4px;vertical-align:middle"></span>Abnormal</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:var(--accent5);border-radius:2px;margin-right:4px;vertical-align:middle"></span>In progress</span>
-        <span><span style="display:inline-block;width:10px;height:10px;background:#2a3445;border-radius:2px;margin-right:4px;vertical-align:middle"></span>ไม่มีข้อมูล (19 เมตร)</span>
-      </div>
-    </div>
-    <!-- CCTV donut -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column">
-      <div style="font-size:14px;font-weight:700;margin-bottom:4px">CCTV Checklist</div>
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-bottom:16px">
-        <span>กล้อง CCTV รวมทั้งหมด (24ม.=13 ตัว, 19ม.=14 ตัว · รวม ${camTotal} ตัว)</span>
-        <span style="cursor:pointer;color:var(--accent)" onclick="">ตรวจครบ / ยังไม่ครบ</span>
-      </div>
-      <div style="display:flex;justify-content:center;margin-bottom:16px">
-        ${donut(camOk,camBad,camWait,camTotal)}
-      </div>
-      <div style="display:flex;justify-content:space-around;text-align:center;flex:1;align-items:flex-end">
-        <div><div style="font-size:26px;font-weight:800;color:var(--accent2);font-family:IBM Plex Mono,monospace">${camOk}</div><div style="font-size:11px;color:var(--text-muted)">กล้องปกติ</div></div>
-        <div><div style="font-size:26px;font-weight:800;color:var(--accent3);font-family:IBM Plex Mono,monospace">${camBad}</div><div style="font-size:11px;color:var(--accent3)">กล้องผิดปกติ</div></div>
-        <div><div style="font-size:26px;font-weight:800;color:var(--accent5);font-family:IBM Plex Mono,monospace">${camWait}</div><div style="font-size:11px;color:var(--accent5)">ยังไม่ตรวจสอบ</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ══ HEALTH MATRIX ══ -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px">
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px">
-      <div>
-        <div style="font-size:15px;font-weight:700">MMR Grafana &amp; CCTV Health Matrix</div>
-        <div style="font-size:11px;color:var(--text-muted);margin-top:3px">แต่ละแถว = เรือ 1 ลำ · คอลัมน์ Grafana = สถานะ Mini PC/Data Box/Grafana · คอลัมน์ 01-14 = กล้อง CAM-01 ถึง CAM-14 · คลิกชื่อเรือเพื่อดูรายละเอียด</div>
-      </div>
-    </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
-      <select id="mx-size" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px">
-        <option value="">ทุกขนาดเรือ</option>
-        <option value="24">24 เมตร</option>
-        <option value="19">19 เมตร</option>
-      </select>
-      <select id="mx-dock" style="padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px">
-        <option value="">ทุกท่าจอด</option>
-        ${dockOpts}
-      </select>
-      <input id="mx-search" placeholder="ค้นหา Boat ID..." style="padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:Sarabun,sans-serif;font-size:13px;width:160px;outline:none">
-      <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);cursor:pointer">
-        <input type="checkbox" id="mx-prob" style="cursor:pointer"> แสดงเฉพาะที่มีปัญหา
-      </label>
-    </div>
-    <div id="mx-container" style="overflow-x:auto"></div>
-  </div>
-
-  <!-- ══ DATA TABLE ══ -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden">
-    <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
-      <div style="font-size:14px;font-weight:700">รายการเรือทั้งหมด</div>
-      <div style="font-size:11px;color:var(--text-muted)">คลิกหัวคอลัมน์เพื่อจัดเรียง</div>
-    </div>
-    <div style="overflow-x:auto">
-      <table class="data-table" style="min-width:900px">
-        <thead><tr>
-          <th>NO</th><th>BOAT ID</th><th>ขนาด</th><th>ท่าจอด</th>
-          <th>MINI PC</th><th>DATA BOX</th><th>GRAFANA</th>
-          <th>กล้องปกติ</th><th>กล้องผิดปกติ</th><th>CHECKLIST</th>
-          <th>REMARK MMR/GRAFANA</th><th>REMARK CCTV</th>
-        </tr></thead>
-        <tbody>${trs}</tbody>
-      </table>
-    </div>
-  </div>`;
+  document.querySelectorAll('#msf-vtable-body tr').forEach(tr=>{
+    tr.addEventListener('click', ()=>{ msfSelectedBoat = tr.dataset.boat; msfShowDetail(msfSelectedBoat); msfRenderMatrix(); });
+  });
 }
 
-// ──────────────────────────────────────────────
-//  HEALTH MATRIX render
-// ──────────────────────────────────────────────
-function renderMatrix() {
-  const szF   = (document.getElementById('mx-size')||{}).value||'';
-  const dkF   = (document.getElementById('mx-dock')||{}).value||'';
-  const srF   = ((document.getElementById('mx-search')||{}).value||'').toLowerCase();
-  const probF = (document.getElementById('mx-prob')||{}).checked;
-
-  let rows = msfRows;
-  if(szF)  rows = rows.filter(r=>getSize(r).includes(szF));
-  if(dkF)  rows = rows.filter(r=>getDock(r)===dkF);
-  if(srF)  rows = rows.filter(r=>getBoatId(r).toLowerCase().includes(srF));
-  if(probF) rows = rows.filter(r=>{
-    const gf=statusClass(r['Grafana']||'');
-    const c=msfCountCams(r);
-    return gf==='st-abnormal'||c.bad>0;
-  });
-
-  const c = document.getElementById('mx-container'); if(!c) return;
-  if(!rows.length){ c.innerHTML='<div style="text-align:center;padding:32px;color:var(--text-muted)">ไม่พบข้อมูล</div>'; return; }
-
-  const camSize=22;
-  const dotCell=(v)=>{
-    const cl=statusClass(v);
-    const bg=cl==='st-complete'?'#28d147':cl==='st-abnormal'?'#ff4d2e':cl==='st-inprogress'?'#ff8c00':'#2a3a50';
-    return `<td style="padding:2px"><div style="width:${camSize}px;height:${camSize}px;border-radius:5px;background:${bg}" title="${esc(v||'—')}"></div></td>`;
-  };
-  const mmrDot=(v)=>{
-    const cl=statusClass(v);
-    const bg=cl==='st-complete'?'#28d147':cl==='st-abnormal'?'#ff4d2e':cl==='st-inprogress'?'#ff8c00':'#2a3a50';
-    return `<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${bg};margin:0 1px" title="${esc(v||'—')}"></span>`;
-  };
-
-  let html=`<table style="border-collapse:collapse;font-size:11px;white-space:nowrap">
-  <thead><tr style="color:var(--text-muted)">
-    <td style="padding:4px 10px 4px 0;font-weight:600;min-width:90px"></td>
-    <td style="padding:4px 8px;font-weight:600;text-align:center">Grafana</td>
-    ${Array.from({length:14},(_,i)=>`<td style="padding:4px 2px;font-weight:600;text-align:center;width:${camSize+4}px">${String(i+1).padStart(2,'0')}</td>`).join('')}
-  </tr></thead><tbody>`;
-
-  rows.forEach(r=>{
-    const id=getBoatId(r), sz=getSize(r).replace(' เมตร','м');
-    const mp=r['Mini PC']||'', db=r['Data Box']||'', gf=r['Grafana']||'';
-    const maxCam=camMaxBySize(r);
-    html+=`<tr>
-      <td style="padding:3px 10px 3px 0;font-weight:700;font-family:IBM Plex Mono,monospace">
-        ${esc(id)} <span style="font-size:9px;color:var(--text-muted);font-weight:400">${sz}</span>
-      </td>
-      <td style="padding:3px 8px;text-align:center">${mmrDot(mp)}${mmrDot(db)}${mmrDot(gf)}</td>
-      ${Array.from({length:maxCam},(_,i)=>dotCell(r['CAM-'+String(i+1).padStart(2,'0')]||'')).join('')}
-      ${maxCam<14?Array.from({length:14-maxCam},()=>`<td style="padding:2px"><div style="width:${camSize}px;height:${camSize}px;border-radius:5px;background:transparent"></div></td>`).join(''):''}
-    </tr>`;
-  });
-  html+=`</tbody></table>`;
-  c.innerHTML=html;
-}
-
-function msfJumpToShip(id,f) { msfSetFilter(f); }
-function toggleSizePopup(el,e) {}
-function msfSetFilter(f) { msfFilter=f; }
-function msfToggle(id) {}
+function msfRefresh() { msfRenderMatrix(); msfRenderTable(); }
 
 
 
