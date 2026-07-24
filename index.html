@@ -285,6 +285,7 @@
     --v2-status-progress: #FFB84D;
     --v2-status-progress-bg: rgba(255,184,77,0.14);
     --v2-status-na: #33505F;
+    --v2-status-pending: #4D9FE8;
     --font-display: 'Space Grotesk', sans-serif;
     --font-thai: 'Noto Sans Thai', sans-serif;
     font-family: var(--font-thai);
@@ -378,7 +379,7 @@
   .msf-v2 .donut-center{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
   .msf-v2 .donut-center .num{ font-family: var(--font-mono); font-size:32px; font-weight:600; }
   .msf-v2 .donut-center .lbl{ font-size:13px; color:var(--v2-text-muted); }
-  .msf-v2 .donut.cam{ background: conic-gradient(var(--v2-status-complete) 0% var(--p2a), var(--v2-status-abnormal) var(--p2a) var(--p2b), var(--v2-status-progress) var(--p2b) 100%); }
+  .msf-v2 .donut.cam{ background: conic-gradient(var(--v2-status-complete) 0% var(--p2a), var(--v2-status-abnormal) var(--p2a) var(--p2b), var(--v2-status-pending) var(--p2b) 100%); }
   .msf-v2 .donut-section-title{ font-size:11.5px; color:var(--v2-text-muted); margin-bottom:12px; text-transform:uppercase; letter-spacing:.04em; }
   .msf-v2 .donut-legend{ display:flex; flex-direction:row; justify-content:center; gap:32px; flex-wrap:wrap; width:100%; }
   .msf-v2 .donut-legend-item{ font-size:11.5px; color:var(--v2-text-muted); text-align:center; }
@@ -413,7 +414,7 @@
   .msf-v2 .cell:hover{ transform: scale(1.25); outline:1px solid var(--v2-text-primary); }
   .msf-v2 .cell.complete{ background: var(--v2-status-complete); }
   .msf-v2 .cell.abnormal{ background: var(--v2-status-abnormal); }
-  .msf-v2 .cell.progress{ background: var(--v2-status-na); }
+  .msf-v2 .cell.progress{ background: var(--v2-status-pending); }
   .msf-v2 .cell.empty{ background: transparent; }
   .msf-v2 .mmr-dots{ display:flex; gap:3px; margin-left:12px; }
   .msf-v2 .mmr-dot{ width:7px; height:7px; border-radius:50%; }
@@ -504,7 +505,7 @@
         <div class="card-desc">ข้อมูลอุปกรณ์, CCTV/NVR และการตั้งค่าออนไลน์บนเรือแต่ละลำ</div>
         <div class="card-headers">
           <span>Boat ID</span><span>ขนาดเรือ</span><span>ท่าจอด</span>
-          <span>Mini PC</span><span>Data Box</span><span>Grafana</span>
+          <span>Mini PC</span><span>datalogger</span><span>Grafana</span>
           <span>หมายเหตุ MMR</span><span>NVR Serial No.</span><span>NVR Config</span>
           <span>CAM-01…14</span><span>กล้องปกติ</span><span>กล้องผิดปกติ</span>
           <span>หมายเหตุ CCTV</span><span>ตรวจสอบแล้ว</span>
@@ -835,17 +836,22 @@ function camMaxBySize(row) {
 }
 function msfCountCams(row) {
   const maxCam = camMaxBySize(row);
-  const o=parseInt(row['กล้องปกติ']||''), b=parseInt(row['กล้องผิดปกติ']||'');
-  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return {ok:o,bad:b,wait:Math.max(0,maxCam-o-b),total:maxCam};
-  let ok=0,bad=0,wait=0;
+  let ok=0,bad=0,prog=0,blank=0,hasCellData=false;
   for(let i=1;i<=maxCam;i++){
-    const v=(row['CAM-'+String(i).padStart(2,'0')]||'');
+    const key='CAM-'+String(i).padStart(2,'0');
+    if(Object.prototype.hasOwnProperty.call(row,key)) hasCellData=true;
+    const v=(row[key]||'');
     const cl=statusClass(v);
     if(cl==='st-complete') ok++;
     else if(cl==='st-abnormal') bad++;
-    else wait++;
+    else if(cl==='st-inprogress') prog++;
+    else blank++;
   }
-  return {ok,bad,wait,total:maxCam};
+  if(hasCellData) return {ok,bad,prog,wait:blank,total:maxCam};
+  // Fallback for rows with only aggregate totals and no per-camera columns
+  const o=parseInt(row['กล้องปกติ']||''), b=parseInt(row['กล้องผิดปกติ']||'');
+  if(!isNaN(o)&&!isNaN(b)&&(o+b)>0) return {ok:o,bad:b,prog:0,wait:Math.max(0,maxCam-o-b),total:maxCam};
+  return {ok:0,bad:0,prog:0,wait:maxCam,total:maxCam};
 }
 
 // ──────────────────────────────────────────────
@@ -853,6 +859,10 @@ function msfCountCams(row) {
 // ──────────────────────────────────────────────
 function renderMSF(data) {
   msfRows = data.rows.filter(r=>(r['Boat ID']||r['เบอร์เรือ']||'').trim());
+  msfRows.forEach(r=>{
+    if(r['datalogger']!==undefined && r['Data Box']===undefined) r['Data Box']=r['datalogger'];
+    if(r['Data Box']!==undefined && r['datalogger']===undefined) r['datalogger']=r['Data Box'];
+  });
   if(data.meta) window._msfMeta = data.meta;
   return `<div id="msfPanel" class="msf-v2"></div>`;
 }
@@ -962,13 +972,17 @@ function v2Color(cls){
   if(cls==='empty') return 'var(--v2-status-na)';
   return 'var(--v2-status-progress)';
 }
+function v2CamColor(cls){
+  if(cls==='progress') return 'var(--v2-status-pending)';
+  return v2Color(cls);
+}
 function isMMRComplete(r){
   if(getSize(r).includes('19')) return statusClass(r['Data Box']||'')==='st-complete' && statusClass(r['Grafana']||'')==='st-complete';
   return statusClass(r['Mini PC']||'')==='st-complete' && statusClass(r['Data Box']||'')==='st-complete' && statusClass(r['Grafana']||'')==='st-complete';
 }
 function isCCTVComplete(r){
   const c = msfCountCams(r);
-  return c.total>0 && c.bad===0 && c.wait===0;
+  return c.total>0 && c.bad===0 && c.wait===0 && c.prog===0;
 }
 
 function buildMSFDash() {
@@ -986,9 +1000,9 @@ function buildMSFDash() {
   const cctvFull24 = sz24.filter(isCCTVComplete).length;
   const cctvFull19 = sz19.filter(isCCTVComplete).length;
 
-  let camNormal=0, camAbnormal=0, camTotal=0;
-  rows.forEach(r=>{ const c=msfCountCams(r); camNormal+=c.ok; camAbnormal+=c.bad; camTotal+=c.total; });
-  const camPending = camTotal - camNormal - camAbnormal;
+  let camNormal=0, camAbnormal=0, camInProgress=0, camTotal=0;
+  rows.forEach(r=>{ const c=msfCountCams(r); camNormal+=c.ok; camAbnormal+=c.bad; camInProgress+=c.prog; camTotal+=c.total; });
+  const camPending = camTotal - camNormal - camAbnormal - camInProgress;
 
   const mmrTotalItems = sz24.length*3 + sz19.length*2;
   const mmrCompleteItems = sz24.reduce((s,r)=>s+['Mini PC','Data Box','Grafana'].filter(f=>statusClass(r[f]||'')==='st-complete').length,0)
@@ -1065,14 +1079,14 @@ function buildMSFDash() {
       </div>
       <div class="mmr-size-group">
         <div class="mmr-size-title">เรือ 24 เมตร <span class="mmr-size-count">${sz24.length} ลำ</span></div>
-        <div>${renderMMRGroup(sz24, [{k:'Mini PC', label:'Mini PC'}, {k:'Data Box', label:'Data Box'}, {k:'Grafana', label:'Grafana'}])}</div>
+        <div>${renderMMRGroup(sz24, [{k:'Mini PC', label:'Mini PC'}, {k:'Data Box', label:'datalogger'}, {k:'Grafana', label:'Grafana'}])}</div>
       </div>
       <div class="mmr-size-group">
         <div class="mmr-size-title">
           เรือ 19 เมตร <span class="mmr-size-count">${sz19.length} ลำ</span>
-          <span class="mmr-size-hint">ไม่มีอุปกรณ์ Mini PC — นับว่า Complete เมื่อ Data Box และ Grafana ปกติ</span>
+          <span class="mmr-size-hint">ไม่มีอุปกรณ์ Mini PC — นับว่า Complete เมื่อ datalogger และ Grafana ปกติ</span>
         </div>
-        <div>${renderMMRGroup(sz19, [{k:'Data Box', label:'Data Box'}, {k:'Grafana', label:'Grafana'}])}</div>
+        <div>${renderMMRGroup(sz19, [{k:'Data Box', label:'datalogger'}, {k:'Grafana', label:'Grafana'}])}</div>
       </div>
       <div class="legend">
         <div class="legend-item"><span class="legend-dot" style="background:var(--v2-status-complete)"></span>Complete</div>
@@ -1095,7 +1109,7 @@ function buildMSFDash() {
         <div class="donut-legend">
           <div class="donut-legend-item"><b>${camNormal} ตัว</b>กล้องปกติ</div>
           <div class="donut-legend-item"><b style="color:var(--v2-status-abnormal)">${camAbnormal} ตัว</b>กล้องผิดปกติ</div>
-          <div class="donut-legend-item"><b style="color:var(--v2-status-progress)">${camPending} ตัว</b>ยังไม่ตรวจสอบ</div>
+          <div class="donut-legend-item"><b style="color:var(--v2-status-pending)">${camInProgress+camPending} ตัว</b>รอตรวจสอบ</div>
         </div>
       </div>
     </div>
@@ -1105,7 +1119,7 @@ function buildMSFDash() {
     <div class="panel-head">
       <div>
         <div class="panel-title">MMR Grafana &amp; CCTV Health Matrix</div>
-        <div class="panel-note" style="margin-top:3px;">แต่ละแถว = เรือ 1 ลำ · คอลัมน์ Grafana = สถานะ Mini PC/Data Box/Grafana · คอลัมน์ NVR = สถานะ NVR · คอลัมน์ 01-14 = กล้อง CAM-01 ถึง CAM-14 · คลิกชื่อเรือเพื่อดูรายละเอียด</div>
+        <div class="panel-note" style="margin-top:3px;">แต่ละแถว = เรือ 1 ลำ · คอลัมน์ Grafana = สถานะ Mini PC/datalogger/Grafana · คอลัมน์ NVR = สถานะ NVR · คอลัมน์ 01-14 = กล้อง CAM-01 ถึง CAM-14 · คลิกชื่อเรือเพื่อดูรายละเอียด</div>
       </div>
       <div class="filters">
         <select id="msf-f-size"><option value="all">ทุกขนาดเรือ</option></select>
@@ -1142,10 +1156,11 @@ function buildMSFDash() {
           <th data-k="size">ขนาด</th>
           <th data-k="dock">ท่าจอด</th>
           <th data-k="mp">Mini PC</th>
-          <th data-k="db">Data Box</th>
+          <th data-k="db">datalogger</th>
           <th data-k="gf">Grafana</th>
           <th data-k="ok">กล้องปกติ</th>
           <th data-k="bad">กล้องผิดปกติ</th>
+          <th data-k="prog">รอตรวจสอบ</th>
           <th data-k="chk">Checklist</th>
           <th data-k="rg">Remark MMR/Grafana</th>
           <th data-k="rc">Remark CCTV</th>
@@ -1212,7 +1227,8 @@ function msfRenderMatrix() {
     const mmrFields = sz.includes('19') ? ['Data Box','Grafana'] : ['Mini PC','Data Box','Grafana'];
     const mmrDots = mmrFields.map(f=>{
       const cls = v2Cls(r[f]||'');
-      return `<span class="mmr-dot" style="background:${v2Color(cls)}" title="${esc(f)}: ${esc(r[f]||'-')}"></span>`;
+      const fLabel = f==='Data Box' ? 'datalogger' : f;
+      return `<span class="mmr-dot" style="background:${v2Color(cls)}" title="${esc(fLabel)}: ${esc(r[f]||'-')}"></span>`;
     }).join('');
     const nvrVal = r['NVR Config']||r['สถานะ NVR']||'';
     const nvrCls = v2Cls(nvrVal);
@@ -1248,7 +1264,7 @@ function msfShowDetail(boatId) {
   const mpCls = is19 ? 'na' : v2PillCls(mpVal);
   const fields = [
     {k:'Mini PC', v:mpVal, display:mpDisplay, cls:mpCls},
-    {k:'Data Box', v:r['Data Box']||'', display:r['Data Box']||'-', cls:v2PillCls(r['Data Box']||'')},
+    {k:'datalogger', v:r['Data Box']||'', display:r['Data Box']||'-', cls:v2PillCls(r['Data Box']||'')},
     {k:'Grafana', v:r['Grafana']||'', display:r['Grafana']||'-', cls:v2PillCls(r['Grafana']||'')},
     {k:'NVR Config', v:r['NVR Config']||r['สถานะ NVR']||'', display:r['NVR Config']||r['สถานะ NVR']||'-', cls:v2PillCls(r['NVR Config']||r['สถานะ NVR']||'')},
   ];
@@ -1260,14 +1276,14 @@ function msfShowDetail(boatId) {
   const nvrSn = getNVR(r)||'-';
   const c = msfCountCams(r);
   document.getElementById('msf-detail-remark-mmr').innerHTML = `<b>Remark — MMR Grafana</b>${esc(rmrG || 'ไม่มีหมายเหตุ')}`;
-  document.getElementById('msf-detail-remark-cctv').innerHTML = `<b>Remark — CCTV (NVR S/N: ${esc(nvrSn)})</b>${esc(rmrC || 'ไม่มีหมายเหตุ')} &nbsp;·&nbsp; กล้องปกติ ${c.ok} / ผิดปกติ ${c.bad}`;
+  document.getElementById('msf-detail-remark-cctv').innerHTML = `<b>Remark — CCTV (NVR S/N: ${esc(nvrSn)})</b>${esc(rmrC || 'ไม่มีหมายเหตุ')} &nbsp;·&nbsp; กล้องปกติ ${c.ok} / ผิดปกติ ${c.bad} / รอตรวจสอบ ${c.prog+c.wait}`;
   const maxCam = camMaxBySize(r);
   document.getElementById('msf-detail-cams').innerHTML = Array.from({length:14},(_,i)=>{
     const label = String(i+1).padStart(2,'0');
     if(i>=maxCam) return `<div class="dc" style="background:transparent"></div>`;
     const key='CAM-'+label;
     const v = r[key]||'';
-    return `<div class="dc" style="background:${v2Color(v2Cls(v))}" title="${key}: ${esc(v||'-')}">${label}</div>`;
+    return `<div class="dc" style="background:${v2CamColor(v2Cls(v))}" title="${key}: ${esc(v||'-')}">${label}</div>`;
   }).join('');
   panel.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
@@ -1277,7 +1293,7 @@ function msfRenderTable() {
   const keyMap = {
     no:(r,i)=>i, id:getBoatId, size:getSize, dock:getDock,
     mp:r=>r['Mini PC']||'', db:r=>r['Data Box']||'', gf:r=>r['Grafana']||'',
-    ok:r=>msfCountCams(r).ok, bad:r=>msfCountCams(r).bad, chk:r=>getChecked(r)?1:0,
+    ok:r=>msfCountCams(r).ok, bad:r=>msfCountCams(r).bad, prog:r=>{const c=msfCountCams(r); return c.prog+c.wait;}, chk:r=>getChecked(r)?1:0,
     rg:r=>(r['หมายเหตุ MMR']||r['Remark (Grafana)']||''), rc:r=>(r['หมายเหตุ CCTV']||r['Remark (CCTV)']||''),
   };
   const idx = new Map(msfRows.map((r,i)=>[r,i]));
@@ -1309,6 +1325,7 @@ function msfRenderTable() {
       <td><span class="pill ${v2PillCls(gf)}">${esc(gf||'-')}</span></td>
       <td>${c.ok}</td>
       <td>${c.bad}</td>
+      <td>${c.prog+c.wait}</td>
       <td>${chk?'<span class="pill complete">ครบ</span>':'<span class="pill progress">ไม่ครบ</span>'}</td>
       <td class="remark-cell" title="${esc(rmrG)}">${esc(rmrG || '—')}</td>
       <td class="remark-cell" title="${esc(rmrC)}">${esc(rmrC || '—')}</td>
